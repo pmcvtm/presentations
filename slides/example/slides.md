@@ -1,4 +1,12 @@
-﻿# A Presentation
+﻿---
+title: Example Test Presentation!
+favicon: example/assets/dolphin_hat.JPG
+theme: solarized
+revealOptions:
+  transition: none
+---
+
+# A Presentation
 
 ---
 
