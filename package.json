@@ -1,0 +1,11 @@
+{
+  "name": "pmcvtm-presentations",
+  "description": "collection of presentations by Patrick McVeety-Mill in a launch and publish -able format",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pmcvtm/presentations"
+  },
+  "homepage": "https://github.com/pmcvtm/presentations#readme",
+  "license": "BSD-3-Clause"
+}
