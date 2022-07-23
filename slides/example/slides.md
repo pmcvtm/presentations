@@ -17,4 +17,6 @@ A test, really:
 
 Test
 
+![a dolphin with sunglasses on its nose](assets/dolphin_hat.JPG)
+
 ---
