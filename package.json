@@ -8,6 +8,9 @@
   },
   "homepage": "https://github.com/pmcvtm/presentations#readme",
   "license": "BSD-3-Clause",
+  "scripts": {
+    "start": "node tools/start.js"
+  },
   "dependencies": {
     "reveal-md": "^5.3.4"
   }
