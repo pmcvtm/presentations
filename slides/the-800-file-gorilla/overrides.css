@@ -1,3 +1,7 @@
 ﻿.backgrounds {
     background: #F8FAF6;
 }
+
+code {
+    border-radius: 0.6em;
+}

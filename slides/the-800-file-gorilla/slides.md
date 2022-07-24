@@ -7,6 +7,7 @@ revealOptions:
   progress: false
 css:
 - overrides.css
+- atom-one-dark-reasonable.min.css
 ---
 
 # The 800 File Gorilla
