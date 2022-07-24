@@ -240,8 +240,9 @@ Leave life-easing feedback before proceeding
 >
 > Hello 👋 I have started review on this PR and noticed that:
 >
-> - ⬜ `ProjectX` was renamed to `ProjectY`
-> - ⬜ all source files were moved into a new folder
+> -
+>   - [ ] `ProjectX` was renamed to `ProjectY`
+>   - [ ] all source files were moved into a new folder
 >
 > Would you mind renaming and moving those **back** to cut down the diff? We can restore them in a follow-up.
 >
@@ -343,9 +344,9 @@ Note: So here's where it was nice to have my checklist as a text document: I can
 
 ---
 
-Tell the author how they did:
+😈 Tell the author how they did:
 
-> &nbsp; &nbsp; **pmcvtm** commented at 6:28 pm
+> &nbsp; &nbsp; **pmcvtm** commented at 6:28 pm 34 days later
 >
 > Hi again 👋 sorry it's been a month. Here's my review:
 >
@@ -378,13 +379,53 @@ Note: Like a lot of "agile" processes, giving _pieces_ of feedback as you go is 
 
 ✅ Be specific and actionable
 
-_small PRs have in-line resolvable comments_
-
 - list files and line numbers
-- leave check-able boxes
-- communicate priority and importance
+- allow author to indicate resolution
+- explain your reasoning when you can
 
-Note: Since we can't use fancy in-line comments right alongside the code, we need to be clear about what we're referring to.
+----
+
+🤏 Small PRs can use repository in-line tools
+
+![Animated gif showing GitHub UI where a comment can be inserted directly on a given line](https://docs.github.com/assets/cb-1241326/images/help/commits/hover-comment-icon.gif)
+
+Note: These days most repository services allow you to leave feedback directly in-line when something is directly to a bit of code (as well as general comments too.)
+
+----
+
+💬 which support discussion + resolution 
+
+![File diff on GitHub UI with an in-line comment followed by replies, with the "Resolve Conversation" button highlighted](https://docs.github.com/assets/cb-36035/images/help/pull_requests/conversation-with-resolve-button.png)
+
+Note: They also support replies (or reactions) which are more convenient than top-level comments and quotes. They even have a way to close out a conversation / feedback item as resolved
+
+----
+
+<!-- .slide: data-background-image="https://media2.giphy.com/media/1Be4g2yeiJ1QfqaKvz/giphy.gif?cid=ecf05e47qu8i9h1xdt7fgy24efjjv4aiiqpdp94o50jgwoi1&rid=giphy.gif&ct=g" -->
+
+Note: That's really cool in theory, but in practice these websites can't handle displaying a diff of 600-900 files at the same time, or allow you to search through them. There's no telling how it might fail to render comments and replies on howevermany of those, too.
+
+---
+
+🔝 Feedback as Top-Level Comment
+
+> &nbsp; &nbsp; **pmcvtm** commented at 2:26 pm
+>
+> ### MyProject.Common
+>
+> - `Helpers/IEncryptionKeySettings.cs`
+>   - [ ] L11-12 private member formatting
+> - `Helpers/OptionsEncryptionKeyResolver.cs`
+>   - [ ] Unit tests are not translated over. Even though this is used a little differently in the new
+>   - framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
+>   - [ ] Also, I noticed this service is registered with `SpecialServiceRegistrar`, would using `AlternativeServiceRegister` work instead? 
+<!-- .element: class="pr-comment" -->
+
+Note: So instead, we do what we can with top-level comments.
+
+Here's an excerpt of what our comment might look like. We have the files listed out, with the feedback listed under each, including the line number when possible. We're using markdown checkboxes so the author can share their progress as they go without needing to add new comments every time.
+
+The first item in the list is a pretty straightforward "TODO" but the others have a bit more explanation, which is hopefully a cue to open discussion, and maybe get ahead of any questions or pushback.
 
 ---
 
@@ -397,23 +438,45 @@ Note: Since we can't use fancy in-line comments right alongside the code, we nee
 
 also **QUESTION** and **COMMENT**
 
----
+Note: Instead of just listing out all feedback equally, we can specify the importance of resolving each item. 
+
+----
+
+🔡 Comments with `MuSh CouWt`
 
 > &nbsp; &nbsp; **pmcvtm** commented at 2:26 pm
 >
 > ### MyProject.Common
 >
-> - `IEncryptionKeySettings.cs`
->   - ⬜ SHOULD: L11-12 private member formatting <br/>
-> - `OptionsEncryptionKeyResolver.cs`
->   - ⬜ MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
+> - `Helpers/IEncryptionKeySettings.cs`
+>   - [ ] SHOULD: L11-12 private member formatting <br/>
+> - `Helpers/OptionsEncryptionKeyResolver.cs`
+>   - [ ] MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
+>   - [ ] QUESTION: When this is registered, can we use `AlternativeServiceRegister` instead of `SpecialServiceRegistrar`?
+<!-- .element: class="pr-comment" -->
+
+Note: Here's an excerpt of what our comment might look like. We have the files listed out, with our prioritized actions under each. We're using markdown checkboxes so the author can share their progress as they go without needing to add new comments every time.
+
+---
+
+❎ Marking Progress
+
+> &nbsp; &nbsp; **pmcvtm** commented at 2:26 pm
+>
+> ### MyProject.Common
+>
+> - `Helpers/IEncryptionKeySettings.cs`
+    >   - [x] SHOULD: L11-12 private member formatting <br/>
+> - `Helpers/OptionsEncryptionKeyResolver.cs`
+    >   - [x] MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
+>   - [ ] QUESTION: When this is registered, can we use `AlternativeServiceRegister` instead of `SpecialServiceRegistrar`?
 <!-- .element: class="pr-comment" -->
 
 ---
 
 🔲 Track against _your_ notes too
 
-```markdown [|5|7,10]
+```markdown [|5|10|7]
 ## MyProject.Common
 
 - [x] Helpers/FileHelper.cs
@@ -423,8 +486,10 @@ also **QUESTION** and **COMMENT**
   - [?] Unit tests not translated
   - ~~How is this registered?~~
 - [x] Spreadsheets/GridFormatter.cs
-  - [?] Broken for .csv
+  - [ ] Broken for .csv
 ```
+
+Note: We can also track progress in our notes, too. So here we've marked off that the private member formatting is fixed. The `csv` file bug hasn't been resolved, and here's the important one: The unit test translated is _reported_ to have been completed, but we don't see it. So we can follow up there.
 
 ---
 
@@ -434,21 +499,21 @@ also **QUESTION** and **COMMENT**
 - be honest and kind with contributor
 - epic/release branches are your friend
 
-Note: There may be some issues you find which require too much technical expertise or domain knowledge to fix. That's OK; don't delay the PR further to get it done, but don't lie to them about things working, either
+Note: There may be some issues you find which require too much technical expertise or domain knowledge to fix. That's OK; don't delay the PR further to get it done, but don't lie to the author about issues being present, either
 
----
+----
 
 > &nbsp; &nbsp; **pmcvtm** commented at 2:26 pm
 >
 > ### MyProject.Common
 >
-> - `IEncryptionKeySettings.cs`
->   - ⬜ SHOULD: L11-12 private member formatting <br/>
-> - `OptionsEncryptionKeyResolver.cs`
->   - ⬜ MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
-> - `ProcessOverride.cs`
->    - ❎ I noticed that the Process Override feature is not working with Postgres.
->    - We will file a bug and follow up with it. 
+> - `Helpers/IEncryptionKeySettings.cs`
+>   - [ ] SHOULD: L11-12 private member formatting <br/>
+> - `Helpers/OptionsEncryptionKeyResolver.cs`
+>   - [ ] MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
+> - `Spreadsheets/GridFormatter.cs`
+>    - [X] COMMENT: I noticed that the Grid Formatter is not working with csv uploads.
+>    - I filed a bug to follow up and fix that after this merges. 
 <!-- .element: class="pr-comment" -->
 
 ---
@@ -456,11 +521,24 @@ Note: There may be some issues you find which require too much technical experti
 🤝 Be diplomatic
 
 - OSS is **publicly viewable**
-- don't be demeaning
 - don't scare contributors off
-- own up to _your_ errors
+- use thoughtful communication channels
 
 Note: It's important to be diplomatic with contributor feedback, especially when trust hasn't been built like it may have been with your internal dev team. Also, PRs are publicly visible, and don't include anything about relationships, past discussions, or other context that may inform your communication. Don't scare folks off... Personally I am not a fan of closing PRs without extra communication, even though it is easy. Also it's important to _own up_ when you goof! We're all only human.
+
+---
+
+😅  Own up to _your_ errors
+
+> &nbsp; &nbsp; **pmcvtm** commented at 4:39 pm
+> 
+> \> _**partnerdev** commented:_
+> _The framework removed that helper, so this service was introduced to shim features X and Y, but feature Z did not need it so we removed it instead._
+>
+> Ah, that makes sense, thank you for explaining. Let's keep it as-is.
+<!-- .element: class="pr-comment" -->
+
+Note: With this much volume, it's likely you will make mistakes! Be humble and gracious that the author is paying close attention, too. When you're not confident about requesting a change, ask a question instead.
 
 ---
 
@@ -468,7 +546,7 @@ Note: It's important to be diplomatic with contributor feedback, especially when
 
 - be kind
 - keep in mind the effort
-- remember it's a person on the other end (hopefully you've talked with them, too)
+- remember it's people on the other end
 
 ---
 
