@@ -5,6 +5,8 @@ revealOptions:
   transition: none
   controls: false
   progress: false
+css:
+- overrides.css
 ---
 
 # The 800 File Gorilla
