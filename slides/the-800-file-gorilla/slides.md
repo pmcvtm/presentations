@@ -15,8 +15,8 @@ _Lessons from Reviewing a Very Big Pull Request_
 
 ---
 
-- background
-- process
+- pr principles
+- big pr
 - feedback
 - tools
 - questions
@@ -34,7 +34,7 @@ Patrick McVeety-Mill "is"
 
 ---
 
-## Background
+## Pull Request Principles
 
 ---
 
@@ -46,6 +46,57 @@ Patrick McVeety-Mill "is"
 ![Diagram of circles in a line representing git commits, with another line branching off of "main" into a new line above, then reconnecting with a dotted line into a circle labeled "PR"](assets/pr-graph.png)
 
 Note: In source control, you have a mainline of code changes (or sometimes more than one) that developers "branch" off of to make changes without stepping on each others toes. When the work is done, they merge it back into mainline, but while it _can_ be merged directly, more often it goes through some review and checks first: A Pull Request.
+
+---
+
+📎 well-organized
+
+- code is reasonably grouped
+- scope of effort is defined and right
+- related changes mostly
+
+Note: As a starting point, it helps if your code is well organized, by project but also function or feature. It's important that the scope of the PR is defined up-front, and ideally "right-sized" between so small it's annoying and so big it's difficult to review.
+
+---
+
+📝 well-documented
+
+- includes high-level description
+- commits tell story of approach
+- issue, ticket, or documentation for more
+
+Note: Good PRs should include a description of the change, as well as steps to test or remarks about it. This can either be as comments or as a description that may roll-up into a commit message at the end. Speaking of commits, ideally they are incremental and can tell a story about the process, or at least makes parts of the work easy to see separately. Finally it can help to have extra documentation in the form of a linked issue or ticket, or maybe on a docs site if there's more design in play.
+
+---
+
+💭 well-considered
+
+- planned before opening
+- open for discussion
+- pragmatic decision-making
+
+Note: PRs are planned out either through issue listings or discussion between contributor and maintainer; and they are open to more discussion after opening. Ultimately decisions that we make as part of the PR or during review are more pragmatic than they are perfectionist.
+
+---
+
+👓 well-reviewed
+
+- thorough - high and low level
+- code is efficient & matches style
+- tested: **functionality over all**
+
+Note: Review of PRs, even for the most experienced and trusted authors, needs to be thorough - both at conceptual and detailed levels. We want to make sure the code is well-written, efficient, and matches our existing codebase. Most importantly, and this is something some lose sight of, that the code behaves as expected, doesn't introduce any regressions.
+
+---
+
+💖 have empathy
+
+for author, reviewer, and readers
+
+---
+
+<!-- .slide: data-background-color="#41658A" -->
+## The Big PR  <!-- .element: style="color:#F8FAF6" -->
 
 ---
 
