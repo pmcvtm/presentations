@@ -16,11 +16,14 @@ _Lessons from Reviewing a Very Big Pull Request_
 
 ---
 
+<!-- .slide: data-background-color="#4C3957" -->
+
 - pr principles
 - big pr
 - feedback
 - tools
 - questions
+<!-- .element: style="color:#F8FAF6" -->
 
 ---
 
@@ -38,7 +41,9 @@ Patrick McVeety-Mill "is" <!-- .element: style="color:#5a3d2b;font:oblique 1em '
 
 ---
 
-## Pull Request Principles
+<!-- .slide: data-background-color="#70A37F" -->
+
+## Pull Request Principles <!-- .element: style="color:#F8FAF6" -->
 
 ---
 
@@ -99,12 +104,19 @@ for author, reviewer, and readers
 
 ---
 
-<!-- .slide: data-background-color="#41658A" -->
-## The Big PR  <!-- .element: style="color:#F8FAF6" -->
+<!-- .slide: data-background-color="#70A37F" -->
+
+## The Big PR <!-- .element: style="color:#F8FAF6" -->
 
 ---
 
-🗺 Lay of the Land
+<!-- .slide: data-background-color="#4E7AA6" -->
+
+### Background <!-- .element: style="color:#F8FAF6" -->
+
+---
+
+🔙 Lay of the Land
 
 - open source software provider
 - most contributions are from their team
@@ -136,13 +148,17 @@ Note: Communication was less frequent than as with dev team; our team wasn't _ow
 
 ---
 
-### Process
+<!-- .slide: data-background-color="#4E7AA6" -->
+
+### Process <!-- .element: style="color:#F8FAF6" -->
 
 Note: Now that we're in this situation, how do we go about it?
 
 ---
 
-#### 1. Acceptance
+<!-- .slide: data-background-color="#414073" -->
+
+#### 1. Accept Your Fate <!-- .element: style="color:#F8FAF6" -->
 
 Note: In a reverse on the stages of grief, the first step is acceptance.
 
@@ -154,7 +170,9 @@ Note: Look yourself in the mirror and say "This is happening"
 
 ---
 
-#### 2. Assessing the Scene
+<!-- .slide: data-background-color="#414073" -->
+
+#### 2. Assess the Scene <!-- .element: style="color:#F8FAF6" -->
 
 Note: Before we dig in to actually reviewing the PR, we should see what's up at a high level, and then plan our excavation.
 
@@ -255,7 +273,15 @@ We're also being very deliberate about how we lay this message out, and will dig
 
 ---
 
-#### 3. Dig In 🍴
+<!-- .slide: data-background-color="#414073" -->
+
+#### 3. Disappear and Review <!-- .element: style="color:#F8FAF6" -->
+
+Note: It's time to disappear for weeks and actually review the code!
+
+---
+
+🍴 Dig In!
 
 - copy spreadsheet to new list
 - project by project, file by file
@@ -341,7 +367,9 @@ Note: So here's where it was nice to have my checklist as a text document: I can
 
 ---
 
-#### 3. Give Feedback
+<!-- .slide: data-background-color="#414073" -->
+
+#### 4. Give Feedback <!-- .element: style="color:#F8FAF6" -->
 
 ---
 
@@ -362,7 +390,9 @@ Note: As expected, there were lots of things to fix. But this is **not** the way
 
 ---
 
-## Feedback
+<!-- .slide: data-background-color="#70A37F" -->
+
+## Feedback <!-- .element: style="color:#F8FAF6" -->
 
 Note: Let's talk about what **would** be a good way to deliver this feedback. Some of this is for big PRs especially, but others are more general.
 
@@ -551,7 +581,9 @@ Note: With this much volume, it's likely you will make mistakes! Be humble and g
 
 ---
 
-## Tools
+<!-- .slide: data-background-color="#70A37F" -->
+
+## Tools <!-- .element: style="color:#F8FAF6" -->
 
 ---
 
