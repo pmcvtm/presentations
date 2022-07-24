@@ -581,6 +581,21 @@ Note: With this much volume, it's likely you will make mistakes! Be humble and g
 
 ---
 
+<!-- .slide: data-background-color="#4E7AA6" -->
+
+### How Did It Go? <!-- .element: style="color:#F8FAF6" -->
+
+---
+
+😌 Slowly but Surely
+
+- 1 month: PR merged into feature branch
+  - 1-2 weeks for first review chunks
+- 2 months: all follow-up issues resolved
+- another reasonable success
+
+---
+
 <!-- .slide: data-background-color="#70A37F" -->
 
 ## Tools <!-- .element: style="color:#F8FAF6" -->
