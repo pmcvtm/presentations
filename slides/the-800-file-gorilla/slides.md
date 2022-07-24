@@ -145,7 +145,7 @@ Note: Now that we're in this situation, how do we go about it?
 
 Note: In a reverse on the stages of grief, the first step is acceptance.
 
----
+----
 
 <!-- .slide: data-background-image="https://media3.giphy.com/media/l0Iy2MPfW2jmXeLgA/giphy.gif?cid=790b761103740f3d151646b6c893b6ad6984aea3ecde9edd&rid=giphy.gif&ct=g" -->
 
@@ -190,7 +190,7 @@ Note: Chances are your code repository's website will crash if you start looking
 
 Note: Uses Excel's `LEFT=` and `SEARCH` to pull out project names, then `RIGHT` for the file.
 
----
+----
 
 ![Spreadsheet listing file diff with columns [git] "Change", "Full Name", the calculated "Project" name and short "Filename"](assets/diff-spreadsheet.jpg)
 
