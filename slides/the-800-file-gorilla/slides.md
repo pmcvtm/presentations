@@ -23,14 +23,17 @@ _Lessons from Reviewing a Very Big Pull Request_
 
 ---
 
-Patrick McVeety-Mill "is"
-<br />**Loud & Abrasive**
+<!-- .slide: data-background-color="#dbd1b3" -->
+<!-- .slide: data-transition="slide" -->
 
-- he/him
-- likes 🥾 ⛺ 🎶 🏊‍♂️ 🎨 🍻 🤙 
-- Engineering Manager at **Accenture**
-- `@pmcvtm`
-- `@loudandabrasive`
+Patrick McVeety-Mill "is" <!-- .element: style="color:#5a3d2b;font:oblique 1em 'Vibur', sans-serif" -->
+<br />**Loud & Abrasive** <!-- .element: style="color:#5a3d2b;font:normal 1.4em 'Bungee Shade', cursive" -->
+
+- he/him <!-- .element: style="color:#e73602" -->
+- likes 🥾 ⛺ 🎶 🏊‍♂️ 🎨 🍻 🤙 <!-- .element: style="color:#e5771e" -->
+- Engineering Manager at <!-- .element: style="color:#87842c" --> **Accenture** <!-- .element: style="color:#cf47ff" -->
+- `@pmcvtm` <!-- .element: style="color:#2a9d8f" -->
+- `@loudandabrasive` <!-- .element: style="color:#264653" -->
 
 ---
 
