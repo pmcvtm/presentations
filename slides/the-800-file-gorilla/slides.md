@@ -182,7 +182,7 @@ Note: Chances are your code repository's website will crash if you start looking
 
 ---
 
-🔳 Dump that text into a spreadsheet and then:
+📊 Dump that text into a spreadsheet and then:
 
 - sort by change <!-- .element: class="fragment" --> (**A**dd,**M**odify,**D**elete,**R**ename)
 - sort by 'project' <!-- .element: class="fragment" -->
@@ -198,6 +198,23 @@ Note: There's _a lot_ we are going to do with this! Most importantly we should s
 
 ---
 
+✅ Translate into a Checklist
+
+```markdown [|1|3-6]
+## MyProject.Common
+
+- [ ] Helpers/FileHelper.cs
+- [ ] Helpers/IEncryptionKeySettings.cs
+- [ ] Helpers/OptionsEncryptionKeyResolver.cs
+- [ ] Spreadsheets/GridFormatter.cs
+...
+```
+
+Note: One of the first things we can do is break out a checklist for ourselves to take notes on.
+I broke this out to a markdown file.. we'll see why in a bit, and I pulled out each list of files per project, and did some Find/Replace magic to add the checkbox in front of each. You could also do this as another row in Excel if you're more comfortable with that.
+
+---
+
 👃 Look for Smells
 
 - `R100`
@@ -207,7 +224,9 @@ Note: There's _a lot_ we are going to do with this! Most importantly we should s
 - big chunks of **A**dds
 - **C**opy changes
 
-Note: Renames show as `R` + the percent difference.  Are these 100%s necessary? Sometimes, but not often. We can assume that we can breeze past them if they are needed. We also note files that we should _not_ gloss over.
+Note: We first look for quick things to either throw out, or flag to look at more closely.
+
+Renames show as `R` + the percent difference.  Are these 100%s necessary? Sometimes, but not often. We can assume that we can breeze past reading them when they are needed, since they haven't changed. We also note files that we should _not_ gloss over.
 
 ---
 
@@ -234,20 +253,76 @@ We're also being very deliberate about how we lay this message out, and will dig
 
 ---
 
-#### 🍴 Dig In
+#### 3. Dig In 🍴
 
 - copy spreadsheet to new list
 - project by project, file by file
 - address additions / deletions, then edits
-- review code + smoke test
 
-Note: Begin the tedium, remembering that functional consistency and accuracy is ultimately more important than the code quality.
+Note: Begin the tedium, going programmatically through parts of the changeset, by project then files. When looking at the code we can quickly assess additions and deletions, or at least note them before re-examining them in another context, before looking at each actual modified piece of code.
 
 ---
 
-📝 Keep a checklist and take notes
+🔎 Examine the Modified Code
 
-```markdown [|1|3|4-5|6-8|9-10|]
+```shell
+$ git difftool -d main MyProject.Common
+```
+![DiffTool showing side-by-side list of file details in "MyProject.Common" folder which are highlighted in different colors to show the kind of difference between them](assets/difftool-directories.jpg) <!-- .element: class="fragment" -->
+
+Note: We can use git to open a nice tool for identifying the differences in the changeset. There are lots of good ones out there, I use BeyondCompare. Hopefully yours has an "expand all" option, and hopefully too they show up in the same order as our checklist. And this is really where the meat of the work starts.
+
+---
+
+🐛 Check for Quality and Behavior
+
+- read through edits looking for **critical** differences
+- quickly note format or style issues
+- manually test related features before moving on
+
+Note: We can now look through each file diff for the changes _that matter_. Look for functional changes, try to get an understanding, and quickly note and move past any style or non-functional changes.
+
+Most important too is that while we go through code, we are manually testing functionality as we go. It doesn't matter if the code _looks_ right, or nicer even, if the behavior isn't as expected.
+
+---
+
+🧰 Use All Your Tools
+
+- don't get stuck viewing diffs
+- leverage features to paint a picture
+- use what you know
+
+Note: We may be switching here between the Diff Tool, "final" code to get highlighting and navigate easier, git tool for commit history... Maybe you're looking at these diffs in a fancy IDE to reduce switching. I wasn't using Rider at the time but I think it would be pretty good at this.
+
+----
+
+Start with the file diff
+
+![Diff tool showing changes in a file side-by-side with different rows highlighted](assets/tools-file-diff.jpg)
+
+Note: This is the bread and butter of reviewing files - try to use one that diffs whitespace differently than other changes.
+
+----
+
+See historical context in git
+
+![Git GUI tools showing list of commits in a tree format with date, message, and author](assets/tools-git-history.jpg)
+
+Note: We can look in our favorite Git GUI to see how this file changed over time or what the thought process behind a change was
+
+----
+
+Navigate and analyze code
+
+![Git GUI tools showing list of commits in a tree format with date, message, and author](assets/tools-code-ide.jpg)
+
+Note: Use your IDE to look at code more deeply, especially when it's new. Some applications may allow you to do all these things from the same app, so if that fits for you, do it.
+
+---
+
+📝 Track and Note in Your Checklist
+
+```markdown [|3|4-5|6-8|9-10|]
 ## MyProject.Common
 
 - [x] Helpers/FileHelper.cs
@@ -260,7 +335,7 @@ Note: Begin the tedium, remembering that functional consistency and accuracy is 
   - [ ] Broken for .csv
 ```
 
-Note: I kept my notes in markdown, since I do anyways, but also they're pre-formatted for leaving feedback later. Questions for follow-up when you know something is used across-projects.
+Note: So here's where it was nice to have my checklist as a text document: I can now add sub-bullets for each item that needs addressing, or when there's a note to look at something else. You could still use Excel for this, but since this is Markdown, it will be easy to plug into the repository's website for formatting.
 
 ---
 
