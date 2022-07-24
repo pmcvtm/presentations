@@ -1,4 +1,13 @@
-﻿# The 800 File Gorilla
+﻿---
+title: 'The 800 File Gorilla: Lessons from Reviewing a Very Big Pull Request'
+theme: simple
+revealOptions:
+  transition: none
+  controls: false
+  progress: false
+---
+
+# The 800 File Gorilla
 _Lessons from Reviewing a Very Big Pull Request_
 
 ---
