@@ -215,9 +215,10 @@ Note: Renames show as `R` + the percent difference.  Are these 100%s necessary? 
 
 🛑 Stop!
 
-Ease your life:
-Leave feedback for these sweeping and simplifying changes before proceeding
+Leave life-easing feedback before proceeding
 
+> &nbsp; &nbsp; **pmcvtm** commented at 10:11 am
+>
 > Hello 👋 I have started review on this PR and noticed that:
 >
 > - ⬜ `ProjectX` was renamed to `ProjectY`
@@ -225,7 +226,7 @@ Leave feedback for these sweeping and simplifying changes before proceeding
 >
 > Would you mind renaming and moving those **back** to cut down the diff? We can restore them in a follow-up.
 >
-<!-- .element: class="fragment" width=100% -->
+<!-- .element: class="pr-comment" -->
 
 Note: Getting ahead of this will make the rest of the review easier. For my situation, the PR went from almost 900 files to 600. Still big, but smaller.
 
@@ -267,13 +268,18 @@ Note: I kept my notes in markdown, since I do anyways, but also they're pre-form
 
 ---
 
+Tell the author how they did:
+
+> &nbsp; &nbsp; **pmcvtm** commented at 6:28 pm
+>
 > Hi again 👋 sorry it's been a month. Here's my review:
 >
 > ⛔ **REJECTED NEEDS FIXES** ⛔
 >
 > There are **lots** of changes we need to do before this merges.
 >
-> I will follow up but closing for now.
+> I will follow up but closing for now, thanks. 😉
+<!-- .element: class="pr-comment" -->
 
 Note: As expected, there were lots of things to fix. But this is **not** the way we want to communicate that out.
 
@@ -318,10 +324,15 @@ also **QUESTION** and **COMMENT**
 
 ---
 
+> &nbsp; &nbsp; **pmcvtm** commented at 2:26 pm
+>
 > ### MyProject.Common
 >
-> ⬜ `IEncryptionKeySettings.cs` <br/> SHOULD: L11-12 private member formatting <br/>
-> ⬜ `OptionsEncryptionKeyResolver.cs` <br/> MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
+> - `IEncryptionKeySettings.cs`
+>   - ⬜ SHOULD: L11-12 private member formatting <br/>
+> - `OptionsEncryptionKeyResolver.cs`
+>   - ⬜ MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
+<!-- .element: class="pr-comment" -->
 
 ---
 
@@ -352,11 +363,18 @@ Note: There may be some issues you find which require too much technical experti
 
 ---
 
+> &nbsp; &nbsp; **pmcvtm** commented at 2:26 pm
+>
 > ### MyProject.Common
 >
-> ⬜ `IEncryptionKeySettings.cs` <br/> SHOULD: L11-12 private member formatting <br/>
-> ⬜ `OptionsEncryptionKeyResolver.cs`... <br/>
-> ❎ I noticed that the Process Override feature (`ProcessOverridee.cs`) is not working with Postgres. We will file a bug and follow up with it.
+> - `IEncryptionKeySettings.cs`
+>   - ⬜ SHOULD: L11-12 private member formatting <br/>
+> - `OptionsEncryptionKeyResolver.cs`
+>   - ⬜ MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
+> - `ProcessOverride.cs`
+>    - ❎ I noticed that the Process Override feature is not working with Postgres.
+>    - We will file a bug and follow up with it. 
+<!-- .element: class="pr-comment" -->
 
 ---
 
