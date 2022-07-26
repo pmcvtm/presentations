@@ -11,8 +11,11 @@ css:
 - atom-one-dark-reasonable.min.css
 ---
 
-# The 800 File Gorilla
-_Lessons from Reviewing a Very Big Pull Request_
+<!-- .slide: data-background-image="assets/kong.jpg", data-background-size="cover" -->
+
+# THE 800 FILE GORILLA <!-- .element: class="fragment r-fit-text", style="color:#F8FAF6;background:black;padding:0.2em", data-fragment-index="0" -->
+
+_LESSONS FROM REVIEWING A **VERY BIG** PULL REQUEST_ <!-- .element: class="fragment r-fit-text", style="color:#F8FAF6;background:black;padding:0.2em", data-fragment-index="0" -->
 
 ---
 
