@@ -48,6 +48,8 @@ Patrick McVeety-Mill "is" <!-- .element: style="color:#5a3d2b;font:oblique 1em '
 
 ## Pull Request Principles <!-- .element: style="color:#F8FAF6" -->
 
+Note: Before we encounter the beast, let's go over some principles that we hold true about code review in general. We'll keep these in mind every step of our way through this.
+
 ---
 
 ❓ Sidebar: _What is a Pull Request?_
@@ -61,17 +63,17 @@ Note: In source control, you have a mainline of code changes (or sometimes more 
 
 ---
 
-📎 well-organized
+📎 Well-Organized
 
 - code is reasonably grouped
-- scope of effort is defined and right
+- scope of effort is defined and right-sized
 - related changes mostly
 
 Note: As a starting point, it helps if your code is well organized, by project but also function or feature. It's important that the scope of the PR is defined up-front, and ideally "right-sized" between so small it's annoying and so big it's difficult to review.
 
 ---
 
-📝 well-documented
+📝 Well-Documented
 
 - includes high-level description
 - commits tell story of approach
@@ -81,7 +83,7 @@ Note: Good PRs should include a description of the change, as well as steps to t
 
 ---
 
-💭 well-considered
+💭 Well-Considered
 
 - planned before opening
 - open for discussion
@@ -91,7 +93,7 @@ Note: PRs are planned out either through issue listings or discussion between co
 
 ---
 
-👓 well-reviewed
+👓 Well-Reviewed
 
 - thorough - high and low level
 - code is efficient & matches style
@@ -101,7 +103,7 @@ Note: Review of PRs, even for the most experienced and trusted authors, needs to
 
 ---
 
-💖 have empathy
+💖 Have Empathy
 
 for author, reviewer, and readers
 
@@ -139,9 +141,9 @@ Note: This partner has worked with the client before, for large changes like fra
 
 ---
 
-👋 Starting point
+👋 Starting Point
 
-- I joined as new lead with effort underway
+- joined as new lead with effort underway
 - _somewhat_ collaborative rhythms:
   - weekly syncs + questions chat
   - lighter touch than client dev team
@@ -181,7 +183,9 @@ Note: Before we dig in to actually reviewing the PR, we should see what's up at 
 
 ---
 
-Create a list of all changes between PR and main
+Create a List
+
+of all changes between PR and main
 
 <!-- data-line-numbers="" -->
 ```shell [1|3-13]
@@ -204,7 +208,7 @@ Note: Chances are your code repository's website will crash if you start looking
 
 ---
 
-📊 Dump that text into a spreadsheet and then:
+📊 Dump into a Spreadsheet
 
 - sort by change <!-- .element: class="fragment" --> (**A**dd,**M**odify,**D**elete,**R**ename)
 - sort by 'project' <!-- .element: class="fragment" -->
@@ -243,12 +247,16 @@ I broke this out to a markdown file.. we'll see why in a bit, and I pulled out e
   - directory renames
   - file exoduses
 - **A**dd + **D**elete with similar names
-- big chunks of **A**dds
+- big chunks of **A**dds (new features)
 - **C**opy changes
 
 Note: We first look for quick things to either throw out, or flag to look at more closely.
 
 Renames show as `R` + the percent difference.  Are these 100%s necessary? Sometimes, but not often. We can assume that we can breeze past reading them when they are needed, since they haven't changed. We also note files that we should _not_ gloss over.
+
+- Add + Deletes might be a rename in disguise.
+- Could new features be in a separate PR?
+- Copy is a weird operation to have happen - let's ask if they noticed.
 
 ---
 
@@ -327,7 +335,7 @@ Note: We may be switching here between the Diff Tool, "final" code to get highli
 
 ----
 
-Start with the file diff
+Start with a File Diff
 
 ![Diff tool showing changes in a file side-by-side with different rows highlighted](assets/tools-file-diff.jpg)
 
@@ -335,7 +343,7 @@ Note: This is the bread and butter of reviewing files - try to use one that diff
 
 ----
 
-See historical context in git
+Draw Historical Context from Git
 
 ![Git GUI tools showing list of commits in a tree format with date, message, and author](assets/tools-git-history.jpg)
 
@@ -343,7 +351,7 @@ Note: We can look in our favorite Git GUI to see how this file changed over time
 
 ----
 
-Navigate and analyze code
+Navigate and Analyze Code with Highlighting
 
 ![Git GUI tools showing list of commits in a tree format with date, message, and author](assets/tools-code-ide.jpg)
 
@@ -366,7 +374,9 @@ Note: Use your IDE to look at code more deeply, especially when it's new. Some a
   - [ ] Broken for .csv
 ```
 
-Note: So here's where it was nice to have my checklist as a text document: I can now add sub-bullets for each item that needs addressing, or when there's a note to look at something else. You could still use Excel for this, but since this is Markdown, it will be easy to plug into the repository's website for formatting.
+Note: As we go, we take notes!
+
+So here's where it was nice to have my checklist as a text document: I can now add sub-bullets for each item that needs addressing, or when there's a note to look at something else. You could still use Excel for this, but since this is Markdown, it will be easy to plug into the repository's website for formatting.
 
 ---
 
@@ -376,7 +386,7 @@ Note: So here's where it was nice to have my checklist as a text document: I can
 
 ---
 
-😈 Tell the author how they did:
+😈 Tell the Author How They Did:
 
 > &nbsp; &nbsp; **pmcvtm** commented at 6:28 pm 34 days later
 >
@@ -411,7 +421,7 @@ Note: Like a lot of "agile" processes, giving _pieces_ of feedback as you go is 
 
 ---
 
-✅ Be specific and actionable
+✅ Be Specific and Actionable
 
 - list files and line numbers
 - allow author to indicate resolution
@@ -419,7 +429,7 @@ Note: Like a lot of "agile" processes, giving _pieces_ of feedback as you go is 
 
 ----
 
-🤏 Small PRs can use repository in-line tools
+🤏 Small PRs Use Repository In-Line Tools
 
 ![Animated gif showing GitHub UI where a comment can be inserted directly on a given line](https://docs.github.com/assets/cb-1241326/images/help/commits/hover-comment-icon.gif)
 
@@ -427,7 +437,7 @@ Note: These days most repository services allow you to leave feedback directly i
 
 ----
 
-💬 which support discussion + resolution 
+💬 In-Line Conversation Replies + Resolution 
 
 ![File diff on GitHub UI with an in-line comment followed by replies, with the "Resolve Conversation" button highlighted](https://docs.github.com/assets/cb-36035/images/help/pull_requests/conversation-with-resolve-button.png)
 
@@ -508,7 +518,7 @@ Note: Here's an excerpt of what our comment might look like. We have the files l
 
 ---
 
-🔲 Track against _your_ notes too
+🔲 Track Against _Your_ Notes Too
 
 ```markdown [|5|10|7]
 ## MyProject.Common
@@ -527,7 +537,7 @@ Note: We can also track progress in our notes, too. So here we've marked off tha
 
 ---
 
-😩 Say "when" (softly)
+😩 Say "When" (softly)
 
 - give tricky issues back to internal team
 - be honest and kind with contributor
@@ -552,17 +562,17 @@ Note: There may be some issues you find which require too much technical experti
 
 ---
 
-🤝 Be diplomatic
+🤝 Be Diplomatic
 
 - OSS is **publicly viewable**
 - don't scare contributors off
 - use thoughtful communication channels
 
-Note: It's important to be diplomatic with contributor feedback, especially when trust hasn't been built like it may have been with your internal dev team. Also, PRs are publicly visible, and don't include anything about relationships, past discussions, or other context that may inform your communication. Don't scare folks off... Personally I am not a fan of closing PRs without extra communication, even though it is easy. Also it's important to _own up_ when you goof! We're all only human.
+Note: It's important to be diplomatic with contributor feedback, especially when trust hasn't been built like it may have been with your internal dev team. Also, PRs are publicly visible, and don't include anything about relationships, past discussions, or other context that may inform your communication. Don't scare folks off... Personally I am not a fan of closing PRs without extra communication, even though it is easy.
 
 ---
 
-😅  Own up to _your_ errors
+😅  Own Up to _Your_ Errors
 
 > &nbsp; &nbsp; **pmcvtm** commented at 4:39 pm
 > 
@@ -576,7 +586,7 @@ Note: With this much volume, it's likely you will make mistakes! Be humble and g
 
 ---
 
-💝 Have empathy
+💝 Have Empathy
 
 - be kind
 - keep in mind the effort
