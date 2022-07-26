@@ -739,9 +739,23 @@ Pairing can make the review easier since you'll be familiar already. Periodic re
 
 ---
 
+<!-- .slide: data-background-color="#70A37F" -->
+<!-- .slide: data-transition="fade" -->
 
+## Questions  <!-- .element: style="color:#F8FAF6" -->
+
+- pr principles <!-- .element: style="color:#F8FAF6" -->
+- big pr: background + process <!-- .element: style="color:#F8FAF6" -->
+- feedback <!-- .element: style="color:#F8FAF6" -->
+- lessons & tools: prevention + communication <!-- .element: style="color:#F8FAF6" -->
 
 ---
 
-# Question
+<!-- .slide: data-background-color="#dbd1b3" -->
 
+# Thanks
+<!-- .element: style="color:#5a3d2b;font:normal 4em 'Bungee Shade', cursive" -->
+
+**@pmcvtm** <!-- .element: style="color:#5a3d2b;" -->
+
+**@loudandabrasive** <!-- .element: style="color:#5a3d2b;" -->
