@@ -21,7 +21,7 @@ _Lessons from Reviewing a Very Big Pull Request_
 - pr principles
 - big pr
 - feedback
-- tools
+- lessons & tools
 - questions
 <!-- .element: style="color:#F8FAF6" -->
 
@@ -82,7 +82,7 @@ Note: Good PRs should include a description of the change, as well as steps to t
 
 - planned before opening
 - open for discussion
-- pragmatic decision-making
+- _pragmatism_ over _dogmatism_
 
 Note: PRs are planned out either through issue listings or discussion between contributor and maintainer; and they are open to more discussion after opening. Ultimately decisions that we make as part of the PR or during review are more pragmatic than they are perfectionist.
 
@@ -598,13 +598,21 @@ Note: With this much volume, it's likely you will make mistakes! Be humble and g
 
 <!-- .slide: data-background-color="#70A37F" -->
 
-## Tools <!-- .element: style="color:#F8FAF6" -->
+## Lessons & Tools <!-- .element: style="color:#F8FAF6" -->
+
+Note: These are the takeaways from the parts that didn't go so well for me. What I'd do differently, what tools I wish I had.
+
+---
+
+<!-- .slide: data-background-color="#4E7AA6" -->
+
+### Preventative Measures <!-- .element: style="color:#F8FAF6" -->
 
 ---
 
 ⏸ Formatting and Rules
 
-```csharp [|2|8]
+```csharp [|1,3,7,9|2,8]
 private readonly IService _service;
 private readonly IDatabase database;
 private readonly ISettings _settings;
@@ -617,40 +625,121 @@ public MyDatabase(IService service, IDatabase database, ISettings settings)
 }
 ```
 
-Note: What do we notice in this codeblock? "One of these things is not like the other." But often it just has to do with editor defaults.
+Note: What do we notice in this code block? "One of these things is not like the other." But often it just has to do with editor defaults rather than deliberate disregard.
 
 ---
 
-🔡 Guide, automate, or enforce style
+👩‍⚖️ Guide, Automate, or Enforce Style
 
-- **`.editorconfig`** is cross-language and cross-ide
-- prefer auto-formatting to error messages
+- bypass with auto-formatting or reporting
 - go stronger-arm if you want _(but know it's annoying)_
+- report _early_ instead of _every_
+- _pragmatism_ over _dogmatism_
 
-Note: Documented styleguides are nice to read, but only go so far.
+Note: Documented styleguides are nice to read, but only go so far. Better would be to use some kind of auto-formatting or style error reporting. You _can_ go stronger-arm; like treating them as compile errors or auto-closing PRs. But that can be annoying for developers. Also consider how many rules you want to have. Consistency can make things easier to ready but be pragmatic where you draw the line!
+
+----
+
+🐭 Style Rules with EditorConfig
+
+**`.editorconfig`** files are cross-language and cross-IDE
+
+```ini
+# https://EditorConfig.org
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = crlf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.cs]
+indent_size = 4
+curly_bracket_next_line = true
+```
+
+Note: The `.editorconfig` format has become pretty ubiquitous across languages and editors. Neat in that it lets you set styles for any languages in a project, or stack them up. You can also set the severity of a particular rule. Many languages have CLI formatter tools, so you can create automated tests or git commit hooks, or however strongly you want to enforce your style.
 
 ---
 
-💬 Communication Channels
+📘 Repository Templates
 
-- pull request interface is great for tracking
-- guide usage with description templates
-- face-to-face, async chat are good for discussion but not always possible
+placeholder text for PRs and issues
+
+```markdown
+Thanks for opening a pull request!
+Please:
+
+- rebase your branch with the latest main
+- include issue number in title
+- list steps for testing and validation
+
+It helps to leave any contextual comments and remarks but these are not required.
+```
+
+Note: These allow you to set expectations up-front when someone opens a PR, or an issue. You can have different text for different kinds of issues, too.
 
 ---
 
-🔨 Break It Down
+🤖 Bots & Builds
 
-- smaller PRs are easier to review
-- early feedback is less likely to repeat
-- big PRs can only exist on big codebases 😉
+- automate checks and report back
+- builds for when code changes
+- bots for when time passes
+- _pragmatism_ over _dogmatism_
+
+Note: These days running some sort of continuous integration build is old news. You can rethink what you do with them. Bots can be valuable too for checking in on stale branches or when formats and guides aren't being met.. out of date dependencies. But this is a place where "pragmatism over dogmatism" is critical 
 
 ---
 
-↩ Alternatives to PRs
+<!-- .slide: data-background-color="#4E7AA6" -->
 
-- small teams + pairing
-- trust, tests, and recovery
+### Communication Channels <!-- .element: style="color:#F8FAF6" -->
+
+----
+
+😃 PR Interface Is Great for:
+
+- tracking progress
+- leaving artifacts
+- in-line comments (for 🤏 ones)
+
+----
+
+😢 PR Interface Struggles when:
+
+- detailing feature needs
+- explaining complex situations
+- brainstorming solutions
+
+---
+
+💬 Use the Right Medium
+
+- outline large endeavors to agreement
+- use **shared** issue-tracking
+- discuss offline then post result
+
+Note: Even though you're staring at these tools, don't limit yourself to them... Make sure plans are laid out in detail and **agreed** upon. Using shared issue tracking can be key, so you're all clear about the division of bodies of work and when PRs should be raised. When it's getting hard to talk through comments, you can always have a discussion "offline" but be sure to post the result. 
+
+---
+
+📤 Outside Alternatives to Incorporate
+
+- frequent pairing
+- periodic review
+- trust, testing, and recovery
+
+Note: Some people really hate pull requests and asynchronous code review! I am not one of them, but some of the things people do instead can be done _also_ without hurting anyone.
+
+Pairing can make the review easier since you'll be familiar already. Periodic review of your code - instead of for each change - can't hurt, and might inform some tech debt epics or reveal issues that slipped by. Finally, trusting your team is **very** important. And everyone's job is easier when a broken piece of code doesn't cause too many issues, with or without deliberate code review.
+
+---
+
+
 
 ---
 
