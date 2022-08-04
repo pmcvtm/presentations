@@ -10,7 +10,7 @@ revealOptions:
 
 ---
 
-## Section 1 
+## Section 1
 
 Here's a sample
 
