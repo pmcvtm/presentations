@@ -4,6 +4,8 @@ favicon: example/assets/dolphin_hat.JPG
 theme: solarized
 revealOptions:
   transition: none
+css:
+- overrides.css
 ---
 
 # A Presentation
