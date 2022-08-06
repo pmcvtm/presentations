@@ -2,7 +2,7 @@ name: Publish Presentations to Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main","800-file-gorilla"]
 
   workflow_dispatch:
 
