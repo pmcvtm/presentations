@@ -1,0 +1,19 @@
+node_modules/
+
+# Published Site
+publish/*
+!publish/index.html
+
+# IDE
+.idea/
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Logs
+logs
+*.log
