@@ -10,9 +10,6 @@ css:
 - overrides.css
 - atom-one-dark-reasonable.min.css
 ---
-<!-- .slide: data-background-image="assets/that/That Conference Branding Slide.png", data-background-size="cover" -->
----
-<!-- .slide: data-background-image="assets/that/That Conference Partners Slide.png", data-background-size="contain" -->
 ---
 
 <!-- .slide: data-background-image="assets/kong.jpg", data-background-size="cover" -->
@@ -789,6 +786,3 @@ Pairing can make the review easier since you'll be familiar already. Periodic re
 **@loudandabrasive** <!-- .element: style="color:#5a3d2b;" -->
 
 ---
-<!-- .slide: data-background-image="assets/that/That.us.png", data-background-size="cover" -->
----
-<!-- .slide: data-background-image="assets/that/That Dates.png", data-background-size="cover" -->
