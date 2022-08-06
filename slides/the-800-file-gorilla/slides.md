@@ -165,6 +165,17 @@ Note: Now that we're in this situation, how do we go about it?
 
 ---
 
+🎩 Tip of the Hat
+
+<div class="r-stack">
+  <img class="fragment current-visible" src="assets/plioi-github.JPG">
+  <img class="fragment current-visible" src="assets/fixie-screenshot.JPG">
+</div>
+
+Note: A quick hat-tip to my name-sharer and mentor Patrick Lioi, who ran through the _first_ pass at this with our partner, and walked me through his process. Some of these approaches are either his or built on his giant shoulders. He does some really interesting OSS, and is also the author of Fixie, which if you're into .NET testing, do it. 
+
+---
+
 <!-- .slide: data-background-color="#414073" -->
 
 #### 1. Accept Your Fate <!-- .element: style="color:#F8FAF6" -->
