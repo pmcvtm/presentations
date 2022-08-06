@@ -30,8 +30,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: Install Dependencies
+        run: npm install
       - name: Build Static Presentations
-        run: npm install && npm run publish example
+        shell: pwsh
+        run: 'Get-ChildItem ./slides -directory | foreach { Write-Host "Publishing $_" && npm run publish $_.Name }'
 
     # Push to GH pages
       - name: Setup Pages
