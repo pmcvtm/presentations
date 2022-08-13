@@ -30,10 +30,6 @@ _LESSONS FROM REVIEWING A **VERY BIG** PULL REQUEST_ <!-- .element: class="fragm
 <!-- .element: style="color:#F8FAF6" -->
 
 ---
-<!-- .slide: data-background-image="assets/kcdc-sponsors.jpg" -->
----
-<!-- .slide: data-background-image="assets/kcdc-acn-plug.jpg" -->
----
 
 <!-- .slide: data-background-color="#dbd1b3" -->
 <!-- .slide: data-transition="slide" -->
