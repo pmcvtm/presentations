@@ -10,7 +10,6 @@ css:
 - overrides.css
 - atom-one-dark-reasonable.min.css
 ---
----
 
 <!-- .slide: data-background-image="assets/kong.jpg", data-background-size="cover" -->
 
