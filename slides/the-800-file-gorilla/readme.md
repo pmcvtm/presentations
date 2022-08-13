@@ -3,7 +3,7 @@ title: 'The 800 File Gorilla: Lessons from Reviewing a Very Big Pull Request'
 theme: simple
 revealOptions:
   transition: none
-  controls: false
+#  controls: false
   progress: false
   navigationMode: linear
 css:
