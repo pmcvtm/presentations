@@ -6,4 +6,4 @@ if(slideDir === 'DID-NOT-SPECIFY'){
     process.exit();
 }
 
-execSync('cd slides/' + slideDir + ' && reveal-md readme.md --static ../../publish/' + slideDir, {stdio:[0, 1, 2]});
+execSync('cd slides/' + slideDir + ' && reveal-md readme.md --static ../../publish/' + slideDir + ' --static-dirs=assets', {stdio:[0, 1, 2]});
