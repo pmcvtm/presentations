@@ -177,7 +177,7 @@ Note: Now that we're in this situation, how do we go about it?
   <img class="fragment current-visible" src="assets/fixie-screenshot.JPG">
 </div>
 
-Note: A quick hat-tip to my name-sharer and mentor Patrick Lioi, who ran through the _first_ pass at this with our partner, and walked me through his process. Some of these approaches are either his or built on his giant shoulders. He does some really interesting OSS, and is also the author of Fixie, which if you're into .NET testing, do it. 
+Note: A quick hat-tip to my name-sharer and mentor Patrick Lioi, who ran through the _first_ pass at this with our partner, and walked me through his process. Some of these approaches are either his or built on his giant shoulders. He does some really interesting OSS, and is also the author of Fixie, which if you're into .NET testing, do it.
 
 ---
 
@@ -457,7 +457,7 @@ Note: These days most repository services allow you to leave feedback directly i
 
 ----
 
-💬 In-Line Conversation Replies + Resolution 
+💬 In-Line Conversation Replies + Resolution
 
 ![File diff on GitHub UI with an in-line comment followed by replies, with the "Resolve Conversation" button highlighted](https://docs.github.com/assets/cb-36035/images/help/pull_requests/conversation-with-resolve-button.png)
 
@@ -482,7 +482,7 @@ Note: That's really cool in theory, but in practice these websites can't handle 
 > - `Helpers/OptionsEncryptionKeyResolver.cs`
 >   - [ ] Unit tests are not translated over. Even though this is used a little differently in the new
 >   - framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
->   - [ ] Also, I noticed this service is registered with `SpecialServiceRegistrar`, would using `AlternativeServiceRegister` work instead? 
+>   - [ ] Also, I noticed this service is registered with `SpecialServiceRegistrar`, would using `AlternativeServiceRegister` work instead?
 <!-- .element: class="pr-comment" -->
 
 Note: So instead, we do what we can with top-level comments.
@@ -502,7 +502,7 @@ The first item in the list is a pretty straightforward "TODO" but the others hav
 
 also **QUESTION** and **COMMENT**
 
-Note: Instead of just listing out all feedback equally, we can specify the importance of resolving each item. 
+Note: Instead of just listing out all feedback equally, we can specify the importance of resolving each item.
 
 ----
 
@@ -577,7 +577,7 @@ Note: There may be some issues you find which require too much technical experti
 >   - [ ] MUST: Unit tests not translated over. Even though this is used a little differently in the new framework, we want to preserve the previous test coverage. Let me know if you want to go over anything.
 > - `Spreadsheets/GridFormatter.cs`
 >    - [X] COMMENT: I noticed that the Grid Formatter is not working with csv uploads.
->    - I filed a bug to follow up and fix that after this merges. 
+>    - I filed a bug to follow up and fix that after this merges.
 <!-- .element: class="pr-comment" -->
 
 ---
@@ -595,7 +595,7 @@ Note: It's important to be diplomatic with contributor feedback, especially when
 😅  Own Up to _Your_ Errors
 
 > &nbsp; &nbsp; **pmcvtm** commented at 4:39 pm
-> 
+>
 > \> _**partnerdev** commented:_
 > _The framework removed that helper, so this service was introduced to shim features X and Y, but feature Z did not need it so we removed it instead._
 >
@@ -724,7 +724,7 @@ Note: These allow you to set expectations up-front when someone opens a PR, or a
 - bots for when time passes
 - _pragmatism_ over _dogmatism_
 
-Note: These days running some sort of continuous integration build is old news. You can rethink what you do with them. Bots can be valuable too for checking in on stale branches or when formats and guides aren't being met.. out of date dependencies. But this is a place where "pragmatism over dogmatism" is critical 
+Note: These days running some sort of continuous integration build is old news. You can rethink what you do with them. Bots can be valuable too for checking in on stale branches or when formats and guides aren't being met.. out of date dependencies. But this is a place where "pragmatism over dogmatism" is critical
 
 ---
 
@@ -756,7 +756,7 @@ Note: These days running some sort of continuous integration build is old news. 
 - use **shared** issue-tracking
 - discuss offline then post result
 
-Note: Even though you're staring at these tools, don't limit yourself to them... Make sure plans are laid out in detail and **agreed** upon. Using shared issue tracking can be key, so you're all clear about the division of bodies of work and when PRs should be raised. When it's getting hard to talk through comments, you can always have a discussion "offline" but be sure to post the result. 
+Note: Even though you're staring at these tools, don't limit yourself to them... Make sure plans are laid out in detail and **agreed** upon. Using shared issue tracking can be key, so you're all clear about the division of bodies of work and when PRs should be raised. When it's getting hard to talk through comments, you can always have a discussion "offline" but be sure to post the result.
 
 ---
 
@@ -785,7 +785,6 @@ Pairing can make the review easier since you'll be familiar already. Periodic re
 ---
 
 <!-- .slide: data-background-color="#dbd1b3" -->
-
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
 
