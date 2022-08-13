@@ -1,6 +1,44 @@
 # Presentations
 
-Presentations by me, Patrick McVeety-Mill!
+Collection of slide decks of presentations created by Patrick McVeety-Mill!
+
+Slides utilize [reveal.js](https://revealjs.com/) by way of [reveal-md](https://github.com/webpro/reveal-md) for smooth and repeatable translation from markdown to reveal.js.
+
+See the slides live at [slides.loudandbrasive.com](https://slides.loudandbrasive.com) or by reading them as rich text in the [/slides](https://github.com/pmcvtm/presentations/tree/main/slides) directory of the repo (navigate to the desired presentation).
+
+## Usage
+
+### Requirements
+
+- [Node JS](https://nodejs.org/en/) v18 or higher
+
+### Installation
+
+After downloading the source code, `cd` into the root of the repository and run:
+
+```shell
+$ npm install
+```
+
+### Creating and presenting slides
+
+Slide decks are named conventionally by folder under the `/slides` directory. In order to be found, slide content **must** be saved as markdown in a file at `/slides/presentation-name/readme.md`.
+
+Slides follow formatting outlined as in [reveal-md](https://github.com/webpro/reveal-md#markdown). See documentation there and from [reveal.js](https://revealjs.com/markdown/) for details.
+
+Launch a slide deck for local presentation or while working with:
+
+```shell
+$ npm start presentation-name
+```
+
+When work is complete, publish a presentation to a static website in the `/publish` directory with:
+
+```shell
+$ npm run publish presentation-name
+```
+
+All slides on the main branch are output automatically as html to github pages using [GitHub Actions](https://github.com/pmcvtm/presentations/actions/workflows/publish-to-pages.yml).
 
 ## License
 
