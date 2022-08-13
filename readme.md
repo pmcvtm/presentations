@@ -4,7 +4,7 @@ Collection of slide decks of presentations created by Patrick McVeety-Mill!
 
 Slides utilize [reveal.js](https://revealjs.com/) by way of [reveal-md](https://github.com/webpro/reveal-md) for smooth and repeatable translation from markdown to reveal.js.
 
-See the slides live at [slides.loudandbrasive.com](https://slides.loudandbrasive.com) or by reading them as rich text in the [/slides](https://github.com/pmcvtm/presentations/tree/main/slides) directory of the repo (navigate to the desired presentation).
+See the slides live at [slides.loudandabrasive.com](https://slides.loudandabrasive.com) or by reading them as rich text in the [/slides](https://github.com/pmcvtm/presentations/tree/main/slides) directory of the repo (navigate to the desired presentation).
 
 ## Usage
 
