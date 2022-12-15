@@ -15,6 +15,14 @@ css:
 
 ---
 
+- min-maxing principles
+- minimal api foundations
+- important integrations
+- the min-max
+- questions
+
+---
+
 <!-- .slide: data-background-color="#dbd1b3" -->
 <!-- .slide: data-transition="slide" -->
 
