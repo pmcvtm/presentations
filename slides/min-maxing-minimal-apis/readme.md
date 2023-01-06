@@ -230,6 +230,29 @@ If you've worked with MVC and then Razor Pages, you may
 have encountered some similar minor differences.
 
 ---
+
+👍 Nice Stuff 🆒
+
+- straightforward and fluent
+- **visible** behavior and config
+- natural fit for **Vertical Slice Architecture**
+
+---
+
+🐠 Our Sample API 🌿
+
+- Manage Fish Tanks (CRUD)
+- Manage Fish (CRUD)
+- Manage Decor (CRUD)
+- Feed the Fish (Action)
+- Clean the Tank (Status, Action)
+
+Note: As we continue talking about Minimal APIs we're going to use a Fish Tank management
+application as our example. This is an API with more than type of consumer - someone
+might have a CLI for it, or a web app with a UI. We don't know.
+But it has these basic features:
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
