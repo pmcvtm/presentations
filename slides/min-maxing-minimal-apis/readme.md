@@ -74,15 +74,24 @@ Note: As an example, this is a Xvart. In D&D, you might play as a human, or a st
 
 > It is **getting the most by doing the least.**
 
-Note: Now, **that** is an attitude I can get behind. I am incredibly lazy - in that I want to minimize the trivial and minutia of work that I'm doing, so I can focus on the good stuff.
+Note: Now, **that** is an attitude I can get behind. I am incredibly lazy - in that I want to minimize the
+amount of trivial minutia that I'm doing, so I can focus on the good stuff.
+
+---
+
+⬆️ The Goals of Min-Maxing ⬆️
+
+- Reduce overhead of building application
+- Focus on features / "important" concerns
+- Still deliver a comprehensive application
 
 ---
 
 📉 The Principles of Min-Maxing📈
 
 - Minimize repeated, trivial, or obvious tasks
-- Favor up-front investment to ongoing maintenance
-- Know when to walk away
+- Leverage conventions leaving room for exceptions
+- Exploit without breaking - know when to walk away
 
 ---
 
