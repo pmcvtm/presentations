@@ -237,6 +237,21 @@ have encountered some similar minor differences.
 - **visible** behavior and config
 - natural fit for **Vertical Slice Architecture**
 
+----
+
+🗼 Sidebar: Vertical Slices 🏭
+
+![Diagram of several "layers" of an application (UI, Application, Domain, DB) and a "slice" running vertically across them](https://jimmybogardsblog.blob.core.windows.net/jimmybogardsblog/3/2018/Picture0030.png)
+Source: [jimmybogard.com](https://jimmybogard.com/vertical-slice-architecture)
+
+Note: Made popular by Jimmy Bogard - If you think about our concerns when implementing
+a feature in an application or system, we typically have these layers. And a historically
+common pattern would be to organize and build around these layers.
+
+Vertical slices are instead organized around distinct requests, where you encapsulate
+all of the concerns required for a given feature or activity _across_ layers,
+instead of within them.
+
 ---
 
 🐠 Our Sample API 🌿
