@@ -95,6 +95,141 @@ amount of trivial minutia that I'm doing, so I can focus on the good stuff.
 
 ---
 
+## Minimal API Foundations
+
+Note: If you're familiar with web development, these will look familiar! If you know .NET, even better.
+
+---
+
+👋 Hello World 🌎
+
+```csharp []
+var builder = WebApplication.CreateBuilder(args);
+
+
+
+var app = builder.Build();
+
+app.MapGet("/hello", () => "Hello World!");
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.Run();
+```
+<!-- .element: class="stretch" -->
+
+----
+
+👋 Hello to Who ❓
+
+```csharp [8,10,11|8|10,11]
+var builder = WebApplication.CreateBuilder(args);
+
+
+
+var app = builder.Build();
+
+app.MapGet("/hello", () => "Hello World!");
+app.MapGet("/hello/{name}", (string name) => $"Hello {name}!");
+
+app.MapPost("/hello", ([FromBody] HelloRecipient person)
+  => $"Hello {person.Name}!");
+
+
+
+
+
+
+
+
+
+app.Run();
+```
+<!-- .element: class="stretch" -->
+
+Note: We can parameterize the endpoints with route values or URL queries,
+or submit a body. And here we get a taste of what actual functionality looks like.
+
+----
+
+👋 Hello Services 🔀
+
+```csharp [2,13,14]
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IHelloService>();
+
+
+var app = builder.Build();
+
+app.MapGet("/hello", () => "Hello World!");
+app.MapGet("/hello/{name}", (string name) => $"Hello {name}!");
+
+app.MapPost("/hello", ([FromBody] HelloRecipient person)
+  => $"Hello {person.Name}!");
+
+app.MapPut("/hello", ([FromBody] HelloRecipient person,
+  [FromService] IHelloService service) => service.SayHello(person));
+
+
+
+
+
+
+app.Run();
+```
+<!-- .element: class="stretch" -->
+
+Note: We can register services to the Inversion of Control container and then
+use them in our handlers. That includes ones we write, or ones from libraries like
+Entity Framework or middleware providers like...
+
+----
+
+👋 Hello Middleware 🧱
+
+```csharp [3,18,19|16|]
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IHelloService>();
+builder.Services.AddDefaultIdentity<IdentityUser>();
+
+var app = builder.Build();
+
+app.MapGet("/hello", () => "Hello World!");
+app.MapGet("/hello/{name}", (string name) => $"Hello {name}!");
+
+app.MapPost("/hello", ([FromBody] HelloRecipient person)
+  => $"Hello {person.Name}!");
+
+app.MapPut("/hello", ([FromBody] HelloRecipient person,
+  [FromService] IHelloService service) => service.SayHello(person));
+
+app.MapGet("/hug", () => "Hello good friend!").RequireAuthorization()
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.Run();
+```
+<!-- .element: class="stretch" -->
+
+Note: ASP.NET Identity! We can add middleware the same as in MVC apps, and most work.
+The ones that don't it's typically due to the difference in contexts available to
+endpoints vs. Controllers.
+
+If you've worked with MVC and then Razor Pages, you may
+have encountered some similar minor differences.
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
