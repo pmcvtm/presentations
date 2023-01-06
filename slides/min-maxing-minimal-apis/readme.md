@@ -46,6 +46,46 @@ css:
 
 ---
 
+## Principles of Min-Maxing
+
+---
+
+➕ What is Min-Maxing? ➖
+
+> Min-Maxing is the art of optimizing a character's abilities during creation by maximizing the most important skills and attributes, while minimizing the cost. Done by strategic decrease of stats believed to be less important, exploiting overpowered but legal combinations of the Game System...
+
+Note: From tvtropes.org
+
+Personally I associate this most with Dungeons and Dragons, but it can be done in any game with player statistics or exploitable rules. In D&D you typically become more powerful by playing the game and gaining experience points. That takes time. A min-maxer will instead find rules which act as shortcuts to those benefits.
+
+----
+
+🧚‍♂️ Example: The Xvart 🐷
+
+![Two blue pug-nosed goblin-like creatures](assets/xvart.png)
+
+Note: As an example, this is a Xvart. In D&D, you might play as a human, or a strong orc, or an elegant elf. You can also play as a Xvart. Xvarts are very small, ugly, relatively low-intelligence creatures in comparison to most of the other playable character types. Because of this, when you elect to play as a Xvart, you get _other_ benefits, like extra levels, to compensate and keep you "even" with other players. You're 1 foot tall and smell bad, but you can also sneak around and have magic at a level much higher than your comrades. It _can_ be frowned upon in some circles. It feels like cheating.
+
+----
+
+➕ What is Min-Maxing? ➖
+
+> Seen from a purely mathematical and gamist perspective, it's an elegant process of minimum expenditure for maximum result.
+
+> It is **getting the most by doing the least.**
+
+Note: Now, **that** is an attitude I can get behind. I am incredibly lazy - in that I want to minimize the trivial and minutia of work that I'm doing, so I can focus on the good stuff.
+
+---
+
+📉 The Principles of Min-Maxing📈
+
+- Minimize repeated, trivial, or obvious tasks
+- Favor up-front investment to ongoing maintenance
+- Know when to walk away
+
+---
+
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
