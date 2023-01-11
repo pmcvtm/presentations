@@ -55,7 +55,7 @@ public class Decoration
 
     [Required] public string Name { get; set; }
 
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     [ForeignKey("AquariumId")]
     public Aquarium? Aquarium { get; set; }
