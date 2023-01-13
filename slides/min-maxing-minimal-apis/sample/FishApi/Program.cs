@@ -16,7 +16,7 @@ builder.Services.AddValidatorsFromAssemblies(new []{ Assembly.GetExecutingAssemb
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
-    opt.CustomSchemaIds(t => t.FullName);
+    opt.CustomSchemaIds(t => t.FullName?.Replace("+", "."));
     opt.OperationFilter<GroupEndpointsByUrlFilter>();
 });
 
