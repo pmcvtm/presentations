@@ -9,6 +9,7 @@ public class OpinionatedEndpointBuilder
     private string? _route;
     private Delegate? _handler;
     private string _resourceName;
+    private string? _description;
 
     public OpinionatedEndpointBuilder MapGet(string route, Delegate handler)
         => MapBase(HttpVerb.GET, route, handler);
@@ -36,7 +37,7 @@ public class OpinionatedEndpointBuilder
             _ => throw new ArgumentOutOfRangeException($"Unconfigured HTTP verb for mapping: {_verb}")
         };
 
-        builder.WithMetadata(new SwaggerOperationAttribute(GetDescription()));
+        builder.WithMetadata(new SwaggerOperationAttribute(GetDescriptionOrDefault()));
 
         builder.WithResponseCode(500, "Internal server error. See the response body for details.");
 
@@ -49,8 +50,14 @@ public class OpinionatedEndpointBuilder
 
     private enum HttpVerb { GET, POST, PUT, DELETE }
 
-    private string GetDescription() =>
-        _verb switch
+    public OpinionatedEndpointBuilder WithDescription(string? description)
+    {
+        _description = description;
+        return this;
+    }
+
+    private string GetDescriptionOrDefault() =>
+        _description ?? _verb switch
         {
             HttpVerb.GET => _route!.Contains("id") ? $"Retrieves a specific {_resourceName.ToSingular()} based on the identifier." : $"Retrieves all {_resourceName}.",
             HttpVerb.POST => $"Creates {_resourceName} based on the supplied values.",
