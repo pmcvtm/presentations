@@ -4,7 +4,6 @@ using FishApi.Documentation;
 using FishApi.Features;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
