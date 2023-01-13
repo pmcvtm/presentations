@@ -1,3 +1,5 @@
+using Swashbuckle.AspNetCore.Annotations;
+
 namespace FishApi.Features;
 
 public class OpinionatedEndpointBuilder
@@ -32,6 +34,13 @@ public class OpinionatedEndpointBuilder
             HttpVerb.DELETE => _endpoints.MapDelete(_route, _handler),
             _ => throw new ArgumentOutOfRangeException($"Unconfigured HTTP verb for mapping: {_verb}")
         };
+        builder.WithResponseCode(500, "Internal server error. See the response body for details.");
+
+        if (_route.Contains("id", StringComparison.InvariantCultureIgnoreCase))
+            builder.WithResponseCode(404, "Not found. A resource with given identifier could not be found.");
+
+        if (_verb is HttpVerb.PUT or HttpVerb.POST)
+            builder.WithResponseCode(400, "Bad Request. See the response body for details.");
     }
 
     private enum HttpVerb { GET, POST, PUT, DELETE }

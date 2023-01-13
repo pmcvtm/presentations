@@ -16,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
     opt.CustomSchemaIds(t => t.FullName?.Replace("+", "."));
+    opt.EnableAnnotations();
     opt.OperationFilter<GroupEndpointsByUrlFilter>();
 });
 
