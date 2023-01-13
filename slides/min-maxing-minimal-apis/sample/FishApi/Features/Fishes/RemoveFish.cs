@@ -2,11 +2,11 @@ using FishApi.Data;
 
 namespace FishApi.Features.Fishes;
 
-public class RemoveFish : IFeature
+public class RemoveFish : Feature
 {
-    public void MapEndpoints(IEndpointRouteBuilder endpoints)
+    public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        endpoints.MapDelete("/fish/{id:int}", Handle);
+        builder.MapDelete("/fish/{id:int}", Handle);
     }
 
     public async Task<IResult> Handle(int id, FishContext db)

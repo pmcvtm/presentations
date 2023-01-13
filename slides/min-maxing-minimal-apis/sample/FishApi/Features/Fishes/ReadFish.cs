@@ -2,18 +2,11 @@ using FishApi.Data;
 
 namespace FishApi.Features.Fishes;
 
-public class ReadFish : IFeature
+public class ReadFish : Feature
 {
-    public void MapEndpoints(IEndpointRouteBuilder endpoints)
+    public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        endpoints.MapGet("/fish", HandleGetAll);
-        endpoints.MapGet("/fish/{id:int}", HandleGetOne);
-    }
-
-    public Task<IResult> HandleGetAll(FishContext db)
-    {
-        var fishes = db.Fish.ToList();
-        return Task.FromResult(Results.Ok(fishes));
+        builder.MapGet("/fish/{id:int}", HandleGetOne);
     }
 
     public async Task<IResult> HandleGetOne(int id, FishContext db)

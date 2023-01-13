@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace FishApi.Features.Decorations;
 
-public class AddDecoration : IFeature
+public class AddDecoration : Feature
 {
-    public void MapEndpoints(IEndpointRouteBuilder endpoints)
+    public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        endpoints.MapPost("/decorations", Handle);
+        builder.MapPost("/decorations", Handle);
     }
 
     public async Task<IResult> Handle(Validator validator, FishContext db, Request request)

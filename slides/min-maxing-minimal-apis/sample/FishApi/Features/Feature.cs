@@ -2,9 +2,9 @@
 
 namespace FishApi.Features;
 
-public interface IFeature
+public abstract class Feature
 {
-    void MapEndpoints(IEndpointRouteBuilder endpoints);
+    public abstract void ConfigureEndpoint(OpinionatedEndpointBuilder builder);
 }
 
 public static class WebApplicationFeatureRegistrationExtensions
@@ -14,18 +14,22 @@ public static class WebApplicationFeatureRegistrationExtensions
         application.UseEndpoints(endpoints =>
         {
             foreach (var feature in GetFeatures().ToList())
-                feature.MapEndpoints(endpoints);
+            {
+                var builder = new OpinionatedEndpointBuilder(endpoints);
+                feature.ConfigureEndpoint(builder);
+                builder.Build();
+            }
         });
     }
 
-    private static IEnumerable<IFeature> GetFeatures()
+    private static IEnumerable<Feature> GetFeatures()
     {
         var featureTypes = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(typ => typeof(IFeature).IsAssignableFrom(typ) && typ.IsClass);
+            .Where(typ => typeof(Feature).IsAssignableFrom(typ) && typ.IsClass && !typ.IsAbstract);
 
         foreach (var featureType in featureTypes)
         {
-            if (Activator.CreateInstance(featureType) is IFeature feature)
+            if (Activator.CreateInstance(featureType) is Feature feature)
                 yield return feature;
         }
     }
