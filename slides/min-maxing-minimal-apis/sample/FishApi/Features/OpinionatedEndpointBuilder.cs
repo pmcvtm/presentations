@@ -21,9 +21,8 @@ public class OpinionatedEndpointBuilder
 
     public void Build()
     {
-        if(_verb == null) throw new Exception("Invalid endpoint registration. Verb must be specified");
-        if(_route == null) throw new Exception("Invalid endpoint registration. Route must be specified");
-        if(_handler == null) throw new Exception("Invalid endpoint registration. Handler must be specified");
+        if (_verb == null || _route == null || _handler == null)
+            throw new Exception("Invalid endpoint registration. Verb, Route, and Handler must be specified");
 
         var builder = _verb switch
         {
@@ -39,6 +38,9 @@ public class OpinionatedEndpointBuilder
 
     private OpinionatedEndpointBuilder MapBase(HttpVerb verb, string route, Delegate handler)
     {
+        if (_verb != null || _route != null || _handler != null)
+            throw new Exception("Builder has already been initialized. Builder is valid for one endpoint only.");
+
         _verb = verb; _route = route; _handler = handler;
         return this;
     }
