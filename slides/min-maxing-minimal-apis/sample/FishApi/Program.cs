@@ -1,5 +1,6 @@
 using System.Reflection;
 using FishApi.Data;
+using FishApi.Documentation;
 using FishApi.Features;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,11 @@ builder.Services.AddDbContext<FishContext>((_, opt) =>
 builder.Services.AddValidatorsFromAssemblies(new []{ Assembly.GetExecutingAssembly() });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(opt => opt.CustomSchemaIds(t => t.FullName));
+builder.Services.AddSwaggerGen(opt =>
+{
+    opt.CustomSchemaIds(t => t.FullName);
+    opt.OperationFilter<GroupEndpointsByUrlFilter>();
+});
 
 var app = builder.Build();
 
