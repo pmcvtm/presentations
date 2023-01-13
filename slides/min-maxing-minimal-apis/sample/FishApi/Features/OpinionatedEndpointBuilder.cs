@@ -8,6 +8,7 @@ public class OpinionatedEndpointBuilder
     private HttpVerb? _verb;
     private string? _route;
     private Delegate? _handler;
+    private string _resourceName;
 
     public OpinionatedEndpointBuilder MapGet(string route, Delegate handler)
         => MapBase(HttpVerb.GET, route, handler);
@@ -34,6 +35,9 @@ public class OpinionatedEndpointBuilder
             HttpVerb.DELETE => _endpoints.MapDelete(_route, _handler),
             _ => throw new ArgumentOutOfRangeException($"Unconfigured HTTP verb for mapping: {_verb}")
         };
+
+        builder.WithMetadata(new SwaggerOperationAttribute(GetDescription()));
+
         builder.WithResponseCode(500, "Internal server error. See the response body for details.");
 
         if (_route.Contains("id", StringComparison.InvariantCultureIgnoreCase))
@@ -45,12 +49,22 @@ public class OpinionatedEndpointBuilder
 
     private enum HttpVerb { GET, POST, PUT, DELETE }
 
+    private string GetDescription() =>
+        _verb switch
+        {
+            HttpVerb.GET => _route!.Contains("id") ? $"Retrieves a specific {_resourceName.ToSingular()} based on the identifier." : $"Retrieves all {_resourceName}.",
+            HttpVerb.POST => $"Creates {_resourceName} based on the supplied values.",
+            HttpVerb.PUT => $"Updates {_resourceName} based on the resource identifier.",
+            HttpVerb.DELETE => $"Deletes an existing {_resourceName.ToSingular()} using the resource identifier.",
+            _ => throw new ArgumentOutOfRangeException($"Unconfigured HTTP verb for default description {_verb}")
+        };
     private OpinionatedEndpointBuilder MapBase(HttpVerb verb, string route, Delegate handler)
     {
         if (_verb != null || _route != null || _handler != null)
             throw new Exception("Builder has already been initialized. Builder is valid for one endpoint only.");
 
-        _verb = verb; _route = route; _handler = handler;
+        _verb = verb; _handler = handler; _route = route.Trim('/');
+        _resourceName = _route.Split('/').First();
         return this;
     }
 
