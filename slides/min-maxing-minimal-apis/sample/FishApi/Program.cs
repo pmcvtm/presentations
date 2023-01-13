@@ -3,6 +3,7 @@ using FishApi.Data;
 using FishApi.Features;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +12,19 @@ builder.Services.AddDbContext<FishContext>((_, opt) =>
 
 builder.Services.AddValidatorsFromAssemblies(new []{ Assembly.GetExecutingAssembly() });
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(opt => opt.CustomSchemaIds(t => t.FullName));
+
 var app = builder.Build();
 
 app.UseRouting(); //The order here matters: Routing -> Endpoints
 app.MapEndpointsFromFeatures();
 
+app.UseSwagger();
+app.UseSwaggerUI(opt =>
+{
+    opt.RoutePrefix = "";
+    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+});
 
 app.Run();
