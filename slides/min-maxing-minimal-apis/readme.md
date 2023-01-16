@@ -974,6 +974,18 @@ the opinionated builder. But for more smaller use cases,
 I can dig it. Definitely will use Filters for some things.
 
 ---
+
+### Even Larger
+
+---
+
+🌳 Growing with `OpinionatedBuilder` 🪓
+
+---
+
+👋 When To Walk Away (Or Not Start) 🚶‍♂️
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
