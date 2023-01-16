@@ -106,103 +106,9 @@ Note: If you're familiar with web development, these will look familiar! If you 
 
 ---
 
-👋 Hello World 🌎
+🏫 Tutorial Speedrun 🏃‍♂️
 
-```csharp []
-var builder = WebApplication.CreateBuilder(args);
-
-
-
-var app = builder.Build();
-
-app.MapGet("/hello", () => "Hello World!");
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.Run();
-```
-<!-- .element: class="stretch" -->
-
-----
-
-👋 Hello to Who ❓
-
-```csharp [8,10,11|8|10,11]
-var builder = WebApplication.CreateBuilder(args);
-
-
-
-var app = builder.Build();
-
-app.MapGet("/hello", () => "Hello World!");
-app.MapGet("/hello/{name}", (string name) => $"Hello {name}!");
-
-app.MapPost("/hello", ([FromBody] HelloRecipient person)
-  => $"Hello {person.Name}!");
-
-
-
-
-
-
-
-
-
-app.Run();
-```
-<!-- .element: class="stretch" -->
-
-Note: We can parameterize the endpoints with route values or URL queries,
-or submit a body. And here we get a taste of what actual functionality looks like.
-
-----
-
-👋 Hello Services 🔀
-
-```csharp [2,13,14]
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IHelloService>();
-
-
-var app = builder.Build();
-
-app.MapGet("/hello", () => "Hello World!");
-app.MapGet("/hello/{name}", (string name) => $"Hello {name}!");
-
-app.MapPost("/hello", ([FromBody] HelloRecipient person)
-  => $"Hello {person.Name}!");
-
-app.MapPut("/hello", ([FromBody] HelloRecipient person,
-  [FromService] IHelloService service) => service.SayHello(person));
-
-
-
-
-
-
-app.Run();
-```
-<!-- .element: class="stretch" -->
-
-Note: We can register services to the Inversion of Control container and then
-use them in our handlers. That includes ones we write, or ones from libraries like
-Entity Framework or middleware providers like...
-
-----
-
-👋 Hello Middleware 🧱
-
-```csharp [3,18,19|16|]
+```csharp [|1,5,21|7|8,10-11|2,13-14|3,16,18-19|]
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IHelloService>();
 builder.Services.AddDefaultIdentity<IdentityUser>();
@@ -227,12 +133,14 @@ app.Run();
 ```
 <!-- .element: class="stretch" -->
 
-Note: ASP.NET Identity! We can add middleware the same as in MVC apps, and most work.
-The ones that don't it's typically due to the difference in contexts available to
-endpoints vs. Controllers.
+Note: Let's run through the tutorial for anyone who hasn't seen it or needs a referesher.
 
-If you've worked with MVC and then Razor Pages, you may
-have encountered some similar minor differences.
+- This is `Main()` in `Program.cs`. No wrapping class, and no `Startup`. All in one
+- Here are our core parts: building up the web app, and running it
+- We can register an endpoint - a Route and Verb an Http Request comes through to, and our response to it
+- Endpoints can be parameterized either by URL query or request body
+- Services can be registered to our IoC container and injected into our response delegates
+- Middleware works just like it used to, we register it, configure our endpoints with them, and then tell the app to use them
 
 ---
 
