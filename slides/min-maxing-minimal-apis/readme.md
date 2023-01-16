@@ -1028,6 +1028,18 @@ Note: Here is an exceptional case
 
 ---
 
+<!-- .slide: data-background-image="assets/delbert-pagayona-46v8clmNjY8-unsplash.jpg", data-background-size="cover" -->
+
+<!-- Image source: Delbert Pagayona on https://unsplash.com/photos/46v8clmNjY8 -->
+
+Notes: (An image of a healthy looking fish in a clean and organized tank)
+
+Now! That's what I'm talking about. We've really cleaned up here, we've got room for more features,
+room for more patterns to emerge. And when I write code, I'm spending my time writing the "good" parts-
+the behavior, and not the administrivia.
+
+---
+
 ## The Future
 
 ---
