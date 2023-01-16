@@ -268,6 +268,18 @@ might have a CLI for it, or a web app with a UI. We don't know.
 But it has these basic features:
 
 ---
+
+🐡 Our Requirements 🦈
+
+- Well-documented
+- Secure, validated
+- Room to grow
+
+----
+
+<!-- Screenshot here -->
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
