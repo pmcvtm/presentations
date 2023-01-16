@@ -106,6 +106,21 @@ Note: If you're familiar with web development, these will look familiar! If you 
 
 ---
 
+🤏 Minimal APIs 
+
+- introduced in ASP.NET Core 6.0
+- REST-style web requests w/o MVC scaffolding
+- brings (formal) .NET web frameworks up to present day
+
+Note:
+
+- These came out in 2021?
+- Allow folks to leverage all the proven, developed middleware without extra cruff
+- Other languages and runtimes were here already - JS/Node/Express; many in python; Ruby Sinatra
+  - .NET had `Nancy` and more recently `Carter` but nothing "official"
+
+---
+
 🏫 Tutorial Speedrun 🏃‍♂️
 
 ```csharp [|1,5,21|7|8,10-11|2,13-14|3,16,18-19|]
