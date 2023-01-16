@@ -502,6 +502,300 @@ Patterns: By HTTP Method
 - we _could_ parse out the parts we need
 
 ---
+
+### We can build it 👷‍
+
+---
+
+`OpinionatedEndpointBuilder`
+
+- tracks HTTP verb + resource name
+- sets conventional defaults
+- provides optional overrides
+
+---
+
+💀 Bare Bones 🦴
+
+```csharp [|1|8,9|3-5,11-17|6,15]
+public class OpinionatedEndpointBuilder
+{
+    private HttpVerb? _verb;
+    private string? _route;
+    private Delegate? _handler;
+    private string _resourceName;
+
+    public OpinionatedEndpointBuilder(IEndpointRouteBuilder endpoints)
+      => _endpoints = endpoints;
+
+    private OpinionatedEndpointBuilder MapEndpoint
+      (HttpVerb verb, string route, Delegate handler)
+    {
+        _verb = verb; _handler = handler; _route = route.Trim('/');
+        _resourceName = _route.Split('/').First();
+        return this;
+    }
+
+    //...
+}
+```
+<!-- .element: class="stretch" -->
+
+Notes: 
+
+- Constructor takes `IEndpointRouteBuilder`
+- Tracks `verb`, `route`, `handler`
+- **private** method to set those values
+  - also track the `resource name` from the URL
+
+
+----
+
+💀 Bare Bones: Endpoint Registration 🔀
+
+```csharp [5-16]
+public class OpinionatedEndpointBuilder
+{
+    // ...
+
+    public OpinionatedEndpointBuilder MapGet(string route, Delegate handler)
+        => MapEndpoint(HttpVerb.GET, route, handler);
+
+    public OpinionatedEndpointBuilder MapPost(string route, Delegate handler)
+        => MapEndpoint(HttpVerb.POST, route, handler);
+
+    public OpinionatedEndpointBuilder MapPut(string route, Delegate handler)
+        => MapEndpoint(HttpVerb.PUT, route, handler);
+
+    public OpinionatedEndpointBuilder MapDelete(string route, Delegate handler)
+        => MapEndpoint(HttpVerb.DELETE, route, handler);
+
+    //...
+}
+```
+<!-- .element: class="stretch" -->
+
+----
+
+💀 Bare Bones: `Build()` 🚧
+
+```csharp [5-19|10-17]
+public class OpinionatedEndpointBuilder
+{
+    // ...
+
+    public void Build()
+    {
+        if (_verb == null || _route == null || _handler == null)
+            throw new Exception("Invalid endpoint registration");
+
+        var builder = _verb switch
+        {
+            HttpVerb.GET => _endpoints.MapGet(_route, _handler),
+            HttpVerb.POST => _endpoints.MapPost(_route, _handler),
+            HttpVerb.PUT => _endpoints.MapPut(_route, _handler),
+            HttpVerb.DELETE => _endpoints.MapDelete(_route, _handler),
+            _ => throw new NotImplementedException
+                ($"Unconfigured HTTP verb for mapping: {_verb}")
+        };
+    }
+
+    //...
+}
+```
+<!-- .element: class="stretch" -->
+
+Notes: And like any builder, we're going to need a `build()` method!
+Here we pass through our builder methods into the `EndpointRouteBuilder`.
+
+----
+
+Refactoring `IFeature` ➡ `Feature`
+
+```csharp [|3|4-5|]
+public abstract class Feature
+{
+    //formerly void MapEndpoints(IEndpointRouteBuilder endpoints)
+    public abstract void ConfigureEndpoint
+      (OpinionatedEndpointBuilder builder);
+}
+```
+
+```csharp [|3|5-7|]
+application.UseEndpoints(endpoints =>
+{
+    foreach (var feature in GetFeatures().ToList())
+    {
+        var builder = new OpinionatedEndpointBuilder(endpoints);
+        feature.ConfigureEndpoint(builder);
+        builder.Build();
+    }
+});
+```
+
+---
+
+🔑 Refactored Security Scopes 🔏
+
+```csharp [|1-7|9-15|]
+private ApiScope[] _scopes;
+
+public OpinionatedEndpointBuilder RequireScopes(params ApiScope[] scopes)
+{
+    _scopes = scopes;
+    return this;
+}
+
+private bool allowAnonymous = false;
+
+public OpinionatedEndpointBuilder AllowAnonymous()
+{
+    _allowAnonymous = true;
+    return this;
+}
+```
+
+---
+
+🔑 Refactored Security Scopes 🔏
+
+```csharp [|6-7|8-9|10-13|]
+public void Build()
+{
+    var builder = _verb switch //...
+    // ...
+
+    if(_allowAnonymous)
+        builder.AllowAnonymous();
+    else if(_scopes.Length > 0)
+        builder.RequireAuthorization(_scopes);
+    else
+    {
+        var scopes = ApiScopes.GetForResource(_resourceName);
+        builder.RequireAuthorization(scopes);
+    }
+}
+```
+
+---
+
+🏗 Refactored Metadata 📑
+
+- leverage endpoint info builder
+- track _new_ contextual info in builder
+- conventional defaults + overrides
+
+----
+
+💬 Refactored Responses 🔢
+
+```csharp [|3|6|8-12|14-15|17-18|]
+public void Build()
+{
+    var builder = _verb switch //...
+    // ...
+
+    builder.WithResponseCode(500, "Internal server error. See response body for details");
+
+    if(!_allowAnonymous)
+    {
+        builder.WithResponseCode(401, "Unauthorized. Request requires authentication");
+        builder.WithResponseCode(403, "Forbidden. User is not authorized for this endpoint");
+    }
+
+    if (_route.Contains("id"))
+        builder.WithResponseCode(404, "Not found. A resource with given identifier could not be found.");
+
+    if (_verb is HttpVerb.PUT or HttpVerb.POST)
+        builder.WithResponseCode(400, "Bad Request. See the response body for details.");
+
+    // ...
+}
+```
+<!-- .element: class="stretch" -->
+
+----
+
+💬 Refactored Responses 🆗
+
+```csharp [|1-5|7-12|]
+public OpinionatedEndpointBuilder WithResponse(int code, string description)
+{
+    _routeOptions.Add(b => b.WithResponse(code, description));
+    return builder;
+}
+
+public OpinionatedEndpointBuilder WithResponse<T>(int code, string? description = null)
+{
+    _routeOptions.Add(b => b.Produces(code, responseType = typeof(T)));
+    _routeOptions.WithMetadata(new SwaggerResponseAttribute(code, description, typeof(T)));
+    return builder;
+}
+```
+
+---
+
+💬 Descriptions 📄
+
+```csharp [|1-6|8-17|19-20]
+private string? _description;
+public OpinionatedEndpointBuilder WithDescription(string description)
+{
+    _description = description;
+    return this;
+}
+
+private string GetDescriptionOrDefault() => _description ?? _verb switch
+{
+  HttpVerb.GET => _route!.Contains("id")
+    ? $"Retrieves a specific {_resourceName.ToSingular()} based on the identifier."
+    : $"Retrieves all {_resourceName}.",
+  HttpVerb.POST => $"Creates {_resourceName} based on the supplied values.",
+  HttpVerb.PUT => $"Updates {_resourceName} based on the resource identifier.",
+  HttpVerb.DELETE => $"Deletes an existing {_resourceName.ToSingular()} using the resource identifier.",
+  _ => throw new ArgumentOutOfRangeException($"Unconfigured HTTP verb for default description {_verb}")
+};
+
+//Inside Build()...
+builder.WithMetadata(new SwaggerOperationAttribute(GetDescriptionOrDefault()));
+```
+<!-- .element: class="stretch" -->
+
+----
+
+1️⃣ Sidebar: `ToSingular()` 😂
+
+```csharp
+public static string ToSingular(this string input) =>
+  input switch
+  {
+      "fish" => "fish",
+      "fishes" => "fish",
+      _ => input.Remove(input.Length - 1, 1)
+  }
+```
+
+---
+
+🎣 Catch All 🥅
+
+```csharp [|1|2-6|8-14]
+private readonly List<Action<RouteHandlerBuilder>> _routeOptions = new();
+public OpinionatedEndpointBuilder WithRouteOption(Action<RouteHandlerBuilder> routeHandlerBuilderAction)
+{
+    _routeOptions.Add(routeHandlerBuilderAction);
+    return this;
+}
+
+public void Build()
+{
+    var builder = _verb switch //...
+    // ...
+    foreach (var endpointAction in _routeOptions)
+        endpointAction(builder);
+}
+```
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
