@@ -594,6 +594,21 @@ Note: An image of a somewhat dirty fish tank full of goldfish
 And we're going to keep doing this for all of our endpoints.
 So we've grown from our little fishbowl - but it's messy, and very repetitious.
 
+---
+
+### Minor Improvements
+
+---
+
+🔁 Refactor Common MetaData ℹ
+
+---
+
+The Feature Pattern
+
+---
+
+Grouping
 
 ---
 
