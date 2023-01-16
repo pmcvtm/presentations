@@ -284,6 +284,15 @@ But it has these basic features:
 ## Getting Large
 
 ---
+
+The Feature Pattern
+
+---
+
+Grouping
+
+---
+
 🔒 Security / Auth 🔑
 
 - uses ASP.NET middleware **just great**
