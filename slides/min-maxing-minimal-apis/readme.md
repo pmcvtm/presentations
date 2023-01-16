@@ -94,9 +94,11 @@ I want to focus on the good stuff.
 
 📉 The Principles of Min-Maxing 📈
 
-- Minimize repeated, trivial, or obvious tasks
-- Leverage conventions leaving room for exceptions
-- Exploit without breaking - know when to walk away
+- Favor larger **up-front** effort to ongoing minutia
+- Leverage **conventions** leaving room for **exceptions**
+- Exploit without breaking - **know when to walk away**
+
+Note: In all of these, we want to be pragmatic and know our limits
 
 ---
 
@@ -121,25 +123,86 @@ Note:
 
 ---
 
+🐠 Our Sample API 🌿
+
+- Manage Aquariums (CRUD)
+- Manage Fish (CRUD)
+- Manage Decor (CRUD)
+- Feed the Fish (Action)
+- Clean the Aquarium (Status, Action)
+
+Note: As we continue talking about Minimal APIs we're going to use a Fish Aquarium management
+application as our example. This is an API with more than type of consumer - someone
+might have a CLI for it, or a web app with a UI. We don't know.
+But it has these basic features:
+
+(CRUD is Create Read Update Delete)
+
+---
+
+<!-- .slide: data-background-image="assets/nolan-krattinger-ADcXaqQ9vOM-unsplash.jpg", data-background-size="cover" -->
+
+<!-- Image source: Nolan Krattinger on https://unsplash.com/photos/ADcXaqQ9vOM -->
+
+Note: An image of a fishbowl with a goldfish cramped in it.
+
+So here's what we can get from that tutorial as far as our fish!
+
+---
+
+🐡 Our Requirements 🦈
+
+- Well- and self- documented
+- Secure and validated endpoints
+- Open for expansion and extension
+
+Note:
+
+Since we don't know our consumers, we want best-in-class clear documentation.
+We of course need secure endpoints and robust request validation
+We need to get these features added in a way we can easily add more,
+  or extend the inner workings to support other components
+
+---
+
+<!-- Screenshot here -->
+
+---
+
+👩‍💻 Sidebar: Sample Code 👨‍💻
+
+- Available at [github.com/pmcvtm/presentations](https://github.com/pmcvtm/presentations)
+- Linked directly from THAT site under resources
+- Representative, but **incomplete**
+- Showing code for concepts _(you can copy/paste later)_
+
+Note:
+
+- Solution is built out, with commit history going through what we've doing today.
+- Does not include **everything** we're talking about, but should give you an idea
+- Going to be moving quickly over code samples today; the goal is to understand the concepts, not get this all down directly
+
+---
+
 🏫 Tutorial Speedrun 🏃‍♂️
 
 ```csharp [|1,5,21|7|8,10-11|2,13-14|3,16,18-19|]
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IHelloService>();
+builder.Services.AddScoped<IFishService>();
 builder.Services.AddDefaultIdentity<IdentityUser>();
 
 var app = builder.Build();
 
-app.MapGet("/hello", () => "Hello World!");
-app.MapGet("/hello/{name}", (string name) => $"Hello {name}!");
+app.MapGet("/fish", () => "Hello Fish!");
+app.MapGet("/fish/{name}", (string name) => $"Hello {name}!");
 
-app.MapPost("/hello", ([FromBody] HelloRecipient person)
-  => $"Hello {person.Name}!");
+app.MapPost("/fish", ([FromBody] Fish fish)
+  => $"Hello {fish.Name}!");
 
-app.MapPut("/hello", ([FromBody] HelloRecipient person,
-  [FromService] IHelloService service) => service.SayHello(person));
+app.MapPut("/fish", ([FromBody] Fish fish,
+  [FromService] IFishService service) => service.SayHello(fish));
 
-app.MapGet("/hug", () => "Hello good friend!").RequireAuthorization()
+app.MapPost("/fish/feed", () => "Om nom nom").RequireAuthorization()
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -189,33 +252,6 @@ instead of within them.
 If you have used MVC and organized your controllers into `Feature Folders` or used the `Mediatr` library
 you may be familiar with this. Additionally if you've hopped over to Razor Pages, those are similarly
 set up to "fall" into this organizational pattern.
-
----
-
-🐠 Our Sample API 🌿
-
-- Manage Aquariums (CRUD)
-- Manage Fish (CRUD)
-- Manage Decor (CRUD)
-- Feed the Fish (Action)
-- Clean the Aquarium (Status, Action)
-
-Note: As we continue talking about Minimal APIs we're going to use a Fish Aquarium management
-application as our example. This is an API with more than type of consumer - someone
-might have a CLI for it, or a web app with a UI. We don't know.
-But it has these basic features:
-
----
-
-🐡 Our Requirements 🦈
-
-- Well-documented
-- Secure, validated
-- Room to grow
-
-----
-
-<!-- Screenshot here -->
 
 ---
 
