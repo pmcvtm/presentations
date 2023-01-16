@@ -412,6 +412,65 @@ app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
 Note: You can also use OpenAPI Versions
 
 ---
+
+All Together Now:
+
+```csharp[|1|2|3-5|6-7]
+app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
+   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement);
+   .WithResponse<Aquarium[]>(200, "Retrieves all aquariums")
+   .WithResponse(401, "Unauthorized. The request requires authentication")
+   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details")
+   .HasDeprecatedApiVersion( ApiConstants.Versions.V09 )
+   .HasApiVersion( ApiConstants.Versions.V1 )
+```
+
+----
+
+Again:
+
+```csharp [|4]
+app.MapPost("/aquariums", (Aquarium request, IAquariumService service) => service.CreateAquarium(request))
+   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement)
+   .WithResponse<Aquarium>(200, "Creates new Aquarium")
+   .WithResponse(400, "Bad Request. The request was invalid and cannot be completed. See the response body for details")
+   .WithResponse(401, "Unauthorized. The request requires authentication")
+   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details")
+   .HasApiVersion( ApiConstants.Versions.V1 );
+```
+
+----
+
+And Again:
+
+```csharp [|5-6]
+app.MapPut("/aquariums/{id}",(int id, Aquarium request, IAquariumService service)
+        => service.UpdateAquarium(id, request))
+   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement)
+   .WithResponse<Aquarium>(200, "Updates the Aquarium specified by ID")
+   .WithResponse(400, "Bad Request. The request was invalid and cannot be completed. See the response body for details")
+   .WithResponse(404, "Not found. The resource identifier is invalid")
+   .WithResponse(401, "Unauthorized. The request requires authentication")
+   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details")
+   .HasApiVersion( ApiConstants.Versions.V1 );
+```
+
+----
+
+And Again:
+
+```csharp [|1-3]
+app.MapGet("/fish", (IFishService service) => service.GetFish())
+   .RequireAuthorization(SecurityConstants.Scopes.FishManagement)
+   .WithResponse<FishModel[]>(200, "Retrieves all Fish")
+   .WithResponse(401, "Unauthorized. The request requires authentication")
+   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details.")
+   .HasApiVersion( ApiConstants.Versions.V1 );
+```
+
+Note: This is exhausting!
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
