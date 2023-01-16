@@ -455,62 +455,135 @@ the route directly. I won't be talking about that explicitly, but you can probab
 
 ---
 
-All Together Now:
+🤝 All Together Now 👐
 
-```csharp[|1|2|3-5|6-7]
-app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
-   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement);
-   .WithResponse<Aquarium[]>(200, "Retrieves all aquariums")
+```csharp [|1|2|3-4|5-8|9-10|]
+app.MapGet("/aquariums", (IAquariumService service) => service.GetAquariums())
+   .RequireAuthorization(ApiScopes.AquariumManagement)
+   .WithTags("aquariums")
+   .WithMetadata(new SwaggerOperationAttribute("Retrieve all Aquariums"));
+   .WithResponse<Aquarium[]>(200, "All fish aquariums")
    .WithResponse(401, "Unauthorized. The request requires authentication")
-   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details")
-   .HasDeprecatedApiVersion( ApiConstants.Versions.V09 )
-   .HasApiVersion( ApiConstants.Versions.V1 )
+   .WithResponse(403, "Forbidden.  User is not authorized for this endpoint")
+   .WithResponse(500, "Internal server error.")
+   .HasDeprecatedApiVersion( 0.9 )
+   .HasApiVersion( 1.0 );
 ```
+
+Note: Here's our whole endpoint for getting aquariums:
+
+1. Route and verb registration
+2. Authorization
+3. Descriptive metadata for Swagger
+4. Response metadata for Swagger
+5. Versions
 
 ----
 
-Again:
+🔂 Again 👐
 
-```csharp [|4]
+```csharp [|1|4-5|6|]
 app.MapPost("/aquariums", (Aquarium request, IAquariumService service) => service.CreateAquarium(request))
-   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement)
-   .WithResponse<Aquarium>(200, "Creates new Aquarium")
+   .RequireAuthorization(ApiScopes.AquariumManagement)
+   .WithTags("aquariums")
+   .WithMetadata(new SwaggerOperationAttribute("Create a new Aquarium"));
+   .WithResponse<Aquarium>(201, "Aquarium created")
    .WithResponse(400, "Bad Request. The request was invalid and cannot be completed. See the response body for details")
    .WithResponse(401, "Unauthorized. The request requires authentication")
-   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details")
-   .HasApiVersion( ApiConstants.Versions.V1 );
+   .WithResponse(403, "Forbidden.  User is not authorized for this endpoint")
+   .WithResponse(500, "Internal server error.")
+   .HasDeprecatedApiVersion( 0.9 )
+   .HasApiVersion( 1.0 );
 ```
+Note: Again!
+
+1. For our POST / create method
+2. Mostly the same, slightly different descriptions
+3. Note we also have a 400 in the mix here
 
 ----
 
-And Again:
+🔁 And Again 👐
 
-```csharp [|5-6]
-app.MapPut("/aquariums/{id}",(int id, Aquarium request, IAquariumService service)
-        => service.UpdateAquarium(id, request))
-   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement)
-   .WithResponse<Aquarium>(200, "Updates the Aquarium specified by ID")
+```csharp [|1|9|]
+app.MapPut("/aquariums/{id}",(int id, Aquarium request, IAquariumService service) => service.UpdateAquarium(id, request))
+   .RequireAuthorization(ApiScopes.AquariumManagement)
+   .WithTags("aquariums")
+   .WithMetadata(new SwaggerOperationAttribute("Updates an existing Aquarium"));
+   .WithResponse<Aquarium>(200, "Aquarium updated")
    .WithResponse(400, "Bad Request. The request was invalid and cannot be completed. See the response body for details")
+   .WithResponse(401, "Unauthorized. The request requires authentication")
+   .WithResponse(403, "Forbidden.  User is not authorized for this endpoint")
    .WithResponse(404, "Not found. The resource identifier is invalid")
-   .WithResponse(401, "Unauthorized. The request requires authentication")
-   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details")
-   .HasApiVersion( ApiConstants.Versions.V1 );
+   .WithResponse(500, "Internal server error.")
+   .HasDeprecatedApiVersion( 0.9 )
+   .HasApiVersion( 1.0 );
 ```
+
+Note: Again!
+
+1. For PUT / update ... more or less the same
+2. We have a 404 not found response here now
 
 ----
 
-And Again:
+🔁 And Again 😰
 
-```csharp [|1-3]
-app.MapGet("/fish", (IFishService service) => service.GetFish())
-   .RequireAuthorization(SecurityConstants.Scopes.FishManagement)
-   .WithResponse<FishModel[]>(200, "Retrieves all Fish")
+```csharp [|1|8|]
+app.MapGet("/aquariums/{id}",(int id, IAquariumService service) => service.GetAquarium(id))
+   .RequireAuthorization(ApiScopes.AquariumManagement)
+   .WithTags("aquariums")
+   .WithMetadata(new SwaggerOperationAttribute("Fetches an existing Aquarium"));
+   .WithResponse<Aquarium>(200, "Aquarium retrieved")
    .WithResponse(401, "Unauthorized. The request requires authentication")
-   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details.")
-   .HasApiVersion( ApiConstants.Versions.V1 );
+   .WithResponse(403, "Forbidden.  User is not authorized for this endpoint")
+   .WithResponse(404, "Not found. The resource identifier is invalid")
+   .WithResponse(500, "Internal server error.")
+   .HasDeprecatedApiVersion( 0.9 )
+   .HasApiVersion( 1.0 );
 ```
 
-Note: This is exhausting!
+Note: Again!
+
+1. For GET a single aquarium
+2. We have a 404 but not the 400...
+    slightly different descriptions...
+
+----
+
+🔁 And Again 😩
+
+```csharp [|1|2-3|4-5|6-8|9|]
+app.MapGet("/fish", (IFishService service) => service.GetFishes())
+   .RequireAuthorization(ApiScopes.FishManagement)
+   .WithTags("fish")
+   .WithMetadata(new SwaggerOperationAttribute("Fetches all fish"));
+   .WithResponse<FishModel[]>(200, "All fish tracked by the system")
+   .WithResponse(401, "Unauthorized. The request requires authentication")
+   .WithResponse(403, "Forbidden.  User is not authorized for this endpoint")
+   .WithResponse(500, "Internal server error. An unhandled error occurred on the server. See the response body for details.")
+   .HasApiVersion( 1.0 );
+```
+
+Note: And now we start on our **Fish** endpoints
+
+1. Get at the fish/ route will use a different service I guess
+2. Now we need the fish auth scope and doc grouping
+3. Different return model and descriptions
+4. Same universal responses
+5. Fish are v1 only so that's a little different
+
+---
+
+<!-- .slide: data-background-image="assets/thomas-park-21hpHNuO5II-unsplash.jpg", data-background-size="cover" -->
+
+<!-- Image source: Thomas Park on https://unsplash.com/photos/21hpHNuO5II -->
+
+Note: An image of a somewhat dirty fish tank full of goldfish
+
+And we're going to keep doing this for all of our endpoints.
+So we've grown from our little fishbowl - but it's messy, and very repetitious.
+
 
 ---
 
