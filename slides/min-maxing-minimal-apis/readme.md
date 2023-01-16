@@ -280,6 +280,138 @@ But it has these basic features:
 <!-- Screenshot here -->
 
 ---
+
+## Getting Large
+
+---
+🔒 Security / Auth 🔑
+
+- uses ASP.NET middleware **just great**
+- authorization is per-endpoint
+- authorization applied by policy (or rich type)
+
+----
+
+Auth Endpoint Configuration
+
+```csharp [|1,4|2,6|8|9]
+app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
+   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement);
+
+app.MapPost("/aquariums", (Aquarium request,
+    IAquariumService service) => service.AddAquarium(request))
+   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement);
+
+app.MapGet("/aquariums", (IFishService) => service.GetFishes())
+   .RequireAuthorization(SecurityConstants.Scopes.FishManagement);
+```
+<!-- .element: style="height:80%" -->
+
+----
+
+Auth Middleware Setup
+
+```csharp [|1-3|5|6-12]
+services.AddAuthentication()
+  //Whatever Auth You Want
+;
+
+services.AddAuthorization(opt => {
+  foreach(var scope in SecurityConstants.Scopes)
+  {
+      var scopePolicy = new AuthorizationPolicyBuilder()
+        .RequireClaim(SecurityConstants.Claims.Scope, scopeName)
+        .Build();
+
+      opt.AddPolicy(scopePolicy);
+  }
+});
+```
+
+Note: Here we set up authentication and authorization by middleware
+Looping through so each of our scopes has a respective policy
+
+---
+
+📜 Documentation ✍
+
+- integrates nicely with Swagger / Swashbuckle
+- leverages OpenAPI metadata
+- configured per-endpoint
+- tries its hardest to infer (but better to be explicit)
+
+----
+
+Using Built-In HttpMetadata
+
+```csharp [2|4-5|3]
+app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
+  .WithTags("aquariums")
+  .Produces(200, "Get all aquariums" responseType: typeof(Aquarium[]))
+  .Produces(401, "Unauthorized. The request requires authentication")
+  .Produces(500, "Unexpected error");
+```
+
+----
+
+Using Swagger Annotations
+
+```csharp [|2-5]
+app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
+   .WithMetadata(new SwaggerResponseAttribute(200,
+     type: typeof(Aquarium[]) ))
+   .WithMetadata(new SwaggerResponseAttribute(401))
+   .WithMetadata(new SwaggerResponseAttribute(500));
+```
+
+----
+
+Using "Belt and Suspenders"
+
+```csharp
+public static RouteHandlerBuilder WithResponse<T>(
+  this RouteHandlerBuilder builder, int code, string? description = null)
+{
+  builder.Produces(code, responseType: typeof(T));
+  builder.WithMetadata(new SwaggerResponseAttribute(code, 
+    description, typeof(T)));
+  return builder;
+}
+```
+
+```csharp
+app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
+   .WithResponse<Aquarium[]>(200, "Return all fish aquariums")
+```
+
+---
+
+🔢 Versioning 🆙
+
+- integrates with [`Asp.Versioning.Http`](https://www.nuget.org/packages/Asp.Versioning.Http)
+- compatible with OpenAPI definitions
+- **only supports version by URL query string**
+
+----
+
+With .NET ASP.NET Versions
+
+```csharp []
+app.DefineApi()
+   .HasApiVersion( 1.0 )
+   .HasApiVersion( 2.0 )
+   .ReportApiVersions();
+```
+
+```csharp
+app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
+   .HasDeprecatedApiVersion( 0.9 )
+   .HasApiVersion( 1.0 );
+````
+
+Note: You can also use OpenAPI Versions
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
