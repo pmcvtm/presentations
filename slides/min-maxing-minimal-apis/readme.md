@@ -11,14 +11,17 @@ css:
 - atom-one-dark-reasonable.min.css
 ---
 
-# Mix-Maxing .NET 6 Minimal APIs
+# Min-Maxing .NET Minimal APIs
 
 ---
 
-- min-maxing principles
-- minimal api foundations
-- important integrations
+**Min-Maxing .NET Minimal APIs**
+
+- principles of min-maxing
+- foundations of minimal api
+- getting large
 - the min-max
+- the future
 - questions
 
 ---
@@ -33,7 +36,7 @@ css:
   <ul style="flex:5">
     <li style="color:#e73602">he/him</li>
     <li style="color:#e5771e">likes ⛺ 🎶 🏊‍♂️ 🎨 🍻 🤙</li>
-    <li style="color:#87842c">Eng. Manager @ <strong style="color:#cf47ff">Accenture</strong></li>
+    <li style="color:#87842c">Eng. Manager @ <strong style="color:#cf47ff;font-family: Arial Black">Accenture</strong></li>
     <li style="color:#2a9d8f">@pmcvtm</li>
     <li style="color:#264653">@loudandabrasive</li>
   </ul>
@@ -74,8 +77,10 @@ Note: As an example, this is a Xvart. In D&D, you might play as a human, or a st
 
 > It is **getting the most by doing the least.**
 
-Note: Now, **that** is an attitude I can get behind. I am incredibly lazy - in that I want to minimize the
-amount of trivial minutia that I'm doing, so I can focus on the good stuff.
+Note: Now, **that** is an attitude I can get behind.
+I am an incredibly lazy - developer. Not in that I don't like to work -- OK maybe in that --
+but more importantly in that I want to minimize the amount of trivial minutia that I'm doing.
+I want to focus on the good stuff.
 
 ---
 
@@ -87,7 +92,7 @@ amount of trivial minutia that I'm doing, so I can focus on the good stuff.
 
 ---
 
-📉 The Principles of Min-Maxing📈
+📉 The Principles of Min-Maxing 📈
 
 - Minimize repeated, trivial, or obvious tasks
 - Leverage conventions leaving room for exceptions
