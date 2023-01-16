@@ -471,6 +471,37 @@ app.MapGet("/fish", (IFishService service) => service.GetFish())
 Note: This is exhausting!
 
 ---
+
+## The Min-Max
+
+---
+
+💀 The Pains ⛑️
+
+- repeating code to generate same or similar results
+- patterns emerge by:
+  - resource
+  - HTTP method
+- entirely around `RouteHandlerBuilder` extensions
+
+----
+
+Patterns: By Resource
+
+----
+
+Patterns: By HTTP Method
+
+---
+
+`RouteHandlerBuilder`
+
+- designed forextension methods
+  - `sealed` and has few props
+- info is in big `List<Object> MetaData`
+- we _could_ parse out the parts we need
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
