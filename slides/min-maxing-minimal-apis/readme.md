@@ -246,7 +246,7 @@ Notes:
 
 ----
 
-🗼 Sidebar: Vertical Slices 🏭
+🍰 Sidebar: Vertical Slices 🍕
 
 ![Diagram of several "layers" of an application (UI, Application, Domain, DB) and a "slice" running vertically across them](https://jimmybogardsblog.blob.core.windows.net/jimmybogardsblog/3/2018/Picture0030.png)
 Source: [jimmybogard.com](https://jimmybogard.com/vertical-slice-architecture)
@@ -596,23 +596,7 @@ So we've grown from our little fishbowl - but it's messy, and very repetitious.
 
 ---
 
-### Minor Improvements
-
----
-
-🔁 Refactor Common MetaData ℹ
-
----
-
-The Feature Pattern
-
----
-
-Grouping
-
----
-
-## The Min-Max
+### Feeling the Pain
 
 ---
 
@@ -643,6 +627,133 @@ Note: Whether a 404 makes sense, and which CRUD action we're taking
 
 ---
 
+## Min-Maxing
+
+---
+
+### Starting Small
+
+---
+
+🍕 The Feature Pattern 🍰
+
+- introduce `IFeature` to hold endpoint definitions
+- reflect to obtain them all
+- loop and register each endpoint set
+- gives room for functionality + encapsulates handling
+
+----
+
+🚩 Features at Startup 🍕
+
+```csharp []
+public interface IFeature
+{
+    public void MapEndpoints(IEndpointRouteBuilder endpoints)
+}
+```
+
+```csharp [|3-6|8-9|]
+application.UseEndpoints(endpoints =>
+{
+    var features = Assembly.GetExecutingAssembly().GetTypes()
+      .Where(typ => typeof(IFeature).IsAssignableFrom(typ) && typ.IsClass)
+      .Select(impl => Activator.CreateInstance(impl) as IFeature)
+      .Where(impl => impl != null);
+
+    foreach (var feature in features)
+        feature!.MapEndpoints(endpoints);
+});
+```
+
+----
+
+🔚 Endpoints as Features 🍰
+
+```csharp [|1-3|4-9|11-19|]
+public class AddAquariums : IFeature
+{
+    public void MapEndpoints(IEndpointRouteBuilder endpoints)
+      => endpoints.MapPost("/aquariums", Handle); //(Other methods omitted)
+
+    public async Task<IResult> Handle(Validator validator, FishContext db, Request request)
+    {
+        //Feature!
+    }
+
+    public record Request
+    {
+        //Properties!
+    }
+
+    public class Validator : AbstractValidator<Request>
+    {
+        //Rules!
+    }
+}
+```
+<!-- .element: class="stretch" -->
+
+Note: Here is an endpoint in that feature pattern
+
+1. Interface implementation
+2. Lots of room for our handler
+3. Room to encapsulate request, validator, helpers, etc
+
+---
+
+↔️ Cross-Cut Tooling ✂️
+
+- leverage options from your tools
+- (when it makes sense to)
+- example: Swagger filter for endpoint groups (`Tag`)
+
+Note: Our libraries and tooling may have options which make
+these registrations simpler.
+
+----
+
+👪 Swagger Tag Grouping ↔️
+
+```csharp [|5-6|11-17|]
+public class GroupEndpointsByUrlFilter : IOperationFilter
+{
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    {
+        var urlParts = context.ApiDescription.RelativePath?
+            .Split("/") ?? Array.Empty<string>();
+
+        if (urlParts.Length == 0)
+            return;
+
+        var resourceName = urlParts[0];
+        if(!string.IsNullOrWhiteSpace(resourceName))
+            operation.Tags = new List<OpenApiTag>
+            {
+                new() { Name = CultureInfo.CurrentCulture
+                  .TextInfo.ToTitleCase(resourceName.Trim('/')) }
+            };
+    }
+}
+```
+<!-- .element: class="stretch" -->
+
+Note:
+
+- This is a naive implementation without versions
+- pull resource name from url and replace tags with it
+- never worry about tags again!
+
+---
+
+🔁 Refactor Common MetaData ℹ
+
+- extract new extension methods
+- pull "universal" response codes
+- repeat / customize as needed
+
+---
+
 ↔ `RouteHandlerBuilder` 🚧
 
 - designed for extension methods
@@ -650,6 +761,9 @@ Note: Whether a 404 makes sense, and which CRUD action we're taking
 - any "state" is in untrustworthy `List<Object> MetaData`
 - we _might could_ parse out what we need
 
+Notes: When we talked about the patterns that emerge,
+they were around information we sort of "have" in our RouteBuilder,
+or at least used in proximity of. However we can't get to it easily.
 ---
 
 ### We can build it 👷‍
