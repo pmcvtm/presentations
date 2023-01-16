@@ -796,6 +796,88 @@ public void Build()
 }
 ```
 ---
+
+### Results
+
+---
+
+↩ Starting Endpoint 😓
+
+```csharp []
+public class AddAquarium
+{
+    public void MapEndpoints(IEndpointRouteBuilder endpoints)
+    {
+        endpoints
+            .MapPost(endpoints, "/aquariums", Handle)
+            .RequireAuthorization(ApiScope.AquariumManagement)
+            .WithMetadata(new SwaggerOperationAttribute("Create a new Aquarium"));
+            .WithResponse<Aquarium>(201, "Aquarium created")
+            .WithResponseCode(500, "Internal server error. See response body for details");
+            .WithResponseCode(401, "Unauthorized. Request requires authentication");
+            .WithResponseCode(403, "Forbidden. User is not authorized for this endpoint");
+    }
+
+    public Task<IResult> Handle(Validator validator, IFishContext db, Request request)
+    {
+        //...
+    }
+}
+```
+<!-- .element: class="stretch" -->
+
+Note: Here was our starting point. And obviously some of these could be refactored into
+helper methods (like for common response codes) but still, I have to remember to add those in.
+
+---
+
+🔚 Conventional Endpoint 😄
+
+```csharp []
+public class AddAquarium
+{
+    public void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
+    {
+        builder.MapPost("/aquariums", Handle)
+               .WithResponse<Aquarium>(201);
+    }
+
+    public Task<IResult> Handle(Validator validator, IFishContext db, Request request)
+    {
+        //...
+    }
+}
+```
+
+---
+
+🔚 Exceptional Endpoint 😸
+
+```csharp []
+public class CleanAquarium
+{
+    public void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
+    {
+        builder.MapPost("/aquariums/{id}/clean", Handle)
+               .WithScopes(ApiScopes.Cleaner)
+               .WithDescription("Cleans the aquarium to remove waste and unwanted growth")
+               .WithResponse(200, "Aquarium cleaned");
+    }
+
+    public Task<IResult> Handle(int id, IFishContext db)
+    {
+        //...
+    }
+}
+```
+
+Note: Here is an exceptional case
+
+- add custom scope + description
+- specify the 200
+- 404 is valid and will get picked up from ID param
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
