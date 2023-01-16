@@ -462,27 +462,36 @@ Note: This is exhausting!
 💀 The Pains ⛑️
 
 - repeating code to generate same or similar results
+- entirely around `RouteHandlerBuilder` extensions
 - patterns emerge by:
   - resource
   - HTTP method
-- entirely around `RouteHandlerBuilder` extensions
 
 ----
 
-Patterns: By Resource
+💧 Patterns: By Resource 🐠
+
+- the **authorization scopes** we require
+- the **groups** for our endpoints
+- the **nouns** in our documentation
 
 ----
 
-Patterns: By HTTP Method
+🕸 Patterns: By HTTP Method 🆗
+
+- the **kinds of responses** we might return
+- the **verbs** in our documentation
+
+Note: Whether a 404 makes sense, and which CRUD action we're taking
 
 ---
 
-`RouteHandlerBuilder`
+↔ `RouteHandlerBuilder` 🚧
 
-- designed forextension methods
+- designed for extension methods
   - `sealed` and has few props
-- info is in big `List<Object> MetaData`
-- we _could_ parse out the parts we need
+- any "state" is in untrustworthy `List<Object> MetaData`
+- we _might could_ parse out what we need
 
 ---
 
