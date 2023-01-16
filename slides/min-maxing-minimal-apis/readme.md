@@ -146,9 +146,15 @@ Note: Let's run through the tutorial for anyone who hasn't seen it or needs a re
 
 👍 Nice Stuff 🆒
 
-- straightforward and fluent
-- **visible** behavior and config
+- straightforward, fluent syntax for **visible** behavior
+- _FAST!_ to write, but also to run
 - natural fit for **Vertical Slice Architecture**
+
+Notes:
+
+- straightforward to implement, with less "magic" than MVC
+- .NET 6 is super performant, with minimal APIs gaining on MVC as well
+- an architectural "pit of success" for organizing your code in a manageable way
 
 ----
 
@@ -159,11 +165,15 @@ Source: [jimmybogard.com](https://jimmybogard.com/vertical-slice-architecture)
 
 Note: Made popular by Jimmy Bogard - If you think about our concerns when implementing
 a feature in an application or system, we typically have these layers. And a historically
-common pattern would be to organize and build around these layers.
+common pattern would be to organize code and build wide-reaching components around these layers.
 
 Vertical slices are instead organized around distinct requests, where you encapsulate
 all of the concerns required for a given feature or activity _across_ layers,
 instead of within them.
+
+If you have used MVC and organized your controllers into `Feature Folders` or used the `Mediatr` library
+you may be familiar with this. Additionally if you've hopped over to Razor Pages, those are similarly
+set up to "fall" into this organizational pattern.
 
 ---
 
