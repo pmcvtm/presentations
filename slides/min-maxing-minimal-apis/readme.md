@@ -878,6 +878,102 @@ Note: Here is an exceptional case
 - 404 is valid and will get picked up from ID param
 
 ---
+
+## The Future
+
+---
+
+### .NET 7
+
+---
+
+📦 Route Groups 🖇
+
+- allows grouping by prefix
+- designed with auth and metadata in mind
+- _still repeating some code_
+
+----
+
+📦 Route Groups in Action🖇
+
+```csharp []
+app.MapGroup("public/todos")
+    .MapTodosApi()
+    .WithDefaultResponseCodes()
+    .AllowAnonymous();
+
+app.MapGroup("/private/todos")
+    .MapTodosApi()
+    .WithDefaultResponseCodes()
+    .WithAuthResponseCodes()
+    .RequireAuthorization();
+
+public static RouteGroupBuilder MapTodosApi(this RouteGroupBuilder group)
+{
+    group.MapGet("/", GetAllTodos).WithDescription("Get all the Todos");
+    group.MapGet("/{id}", GetSingleTodo).WithDescription("Get a todo");
+    group.MapPost("/", AddTodo).WithDescription("Create a todo");
+    group.MapPut("/{id}", EditToDo).WithDescription("Edit a todo");
+    group.MapDelete("/{id}", DeleteToDo).WithDescription("Remove a todo");
+
+    return group;
+}
+```
+<!-- .element: class="stretch" -->
+
+---
+
+🔻 Endpoint Filters 🌟
+
+- like filters in MVC
+- applied individually or to groups
+- use case: validation
+
+----
+
+🔻 Endpoint Filters in Action 🌟
+
+```csharp
+app.MapGet("/colorSelector/{color}", ColorName)
+    .AddEndpointFilter(async (invocationContext, next) =>
+    {
+        var color = invocationContext.GetArgument<string>(0);
+
+        if (color == "Red")
+            return Results.Problem("Red not allowed!");
+
+        return await next(invocationContext);
+    });
+
+// or
+
+app.MapGet("/colorSelector/{color}", ColorName)
+   .AddEndpointFilter<RedNotAllowedFilter>();
+```
+
+---
+
+🌟 Filters and Groups Together 🤝
+
+```csharp []
+var all = app
+  .MapGroup("/")
+  .WithUniversalResponses()
+  .AddEndpointFilter<ValidationEndpointFilter>();
+
+var aquariums = all.MapGroup("aquariums")
+  .RequireAuthorization("AquariumManagement")
+  .MapGet("/", GetAquariums)
+  //...
+```
+
+Note: I haven't used .NET 7 filters yet, but I could see them
+coming together like this. I don't know if I like it more than
+the opinionated builder. But for more smaller use cases,
+I can dig it. Definitely will use Filters for some things.
+
+---
 <!-- .slide: data-background-color="#dbd1b3" -->
 
 <div style="color:#5a3d2b;font:normal 2em 'Bungee Shade', cursive;line-height:1em;padding-bottom:2rem">Thanks</div>
