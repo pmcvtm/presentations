@@ -256,13 +256,13 @@ instead of within them.
 
 🐠 Our Sample API 🌿
 
-- Manage Fish Tanks (CRUD)
+- Manage Aquariums (CRUD)
 - Manage Fish (CRUD)
 - Manage Decor (CRUD)
 - Feed the Fish (Action)
-- Clean the Tank (Status, Action)
+- Clean the Aquarium (Status, Action)
 
-Note: As we continue talking about Minimal APIs we're going to use a Fish Tank management
+Note: As we continue talking about Minimal APIs we're going to use a Fish Aquarium management
 application as our example. This is an API with more than type of consumer - someone
 might have a CLI for it, or a web app with a UI. We don't know.
 But it has these basic features:
