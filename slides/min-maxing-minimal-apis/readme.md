@@ -222,6 +222,16 @@ Note: Let's run through the tutorial for anyone who hasn't seen it or needs a re
 
 ---
 
+<!-- .slide: data-background-image="assets/ahmed-zayan-URaZrRvKQqM-unsplash.jpg", data-background-size="cover" -->
+
+<!-- Image source: Ahmed Zayan on https://unsplash.com/photos/URaZrRvKQqM -->
+
+Note: An image of a fishbowl with a goldfish cramped in it.
+
+So here's what we can get from that tutorial as far as our fish!
+
+---
+
 👍 Nice Stuff 🆒
 
 - straightforward, fluent syntax for **visible** behavior
