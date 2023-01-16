@@ -257,42 +257,28 @@ set up to "fall" into this organizational pattern.
 
 ## Getting Large
 
----
-
-The Feature Pattern
-
----
-
-Grouping
+Note: Let's start addressing the actual concerns we have in our api; the features and
+infrastructure we need to get by
 
 ---
+
+### Important Integrations
+
+---
+
 
 🔒 Security / Auth 🔑
 
 - uses ASP.NET middleware **just great**
-- authorization is per-endpoint
-- authorization applied by policy (or rich type)
+- auth applied per-endpoint by policy
+<!-- .element: style="padding-bottom: 1em" -->
+
+1. set up auth middleware and policies
+2. add authorization scopes to each endpoint
 
 ----
 
-Auth Endpoint Configuration
-
-```csharp [|1,4|2,6|8|9]
-app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
-   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement);
-
-app.MapPost("/aquariums", (Aquarium request,
-    IAquariumService service) => service.AddAquarium(request))
-   .RequireAuthorization(SecurityConstants.Scopes.AquariumManagement);
-
-app.MapGet("/aquariums", (IFishService) => service.GetFishes())
-   .RequireAuthorization(SecurityConstants.Scopes.FishManagement);
-```
-<!-- .element: style="height:80%" -->
-
-----
-
-Auth Middleware Setup
+🔒 Auth Middleware Setup 🔑
 
 ```csharp [|1-3|5|6-12]
 services.AddAuthentication()
@@ -300,10 +286,10 @@ services.AddAuthentication()
 ;
 
 services.AddAuthorization(opt => {
-  foreach(var scope in SecurityConstants.Scopes)
+  foreach(var scope in ApiScope.GetAll())
   {
       var scopePolicy = new AuthorizationPolicyBuilder()
-        .RequireClaim(SecurityConstants.Claims.Scope, scopeName)
+        .RequireClaim(SecurityConstants.Claims.Scope, scope.Name)
         .Build();
 
       opt.AddPolicy(scopePolicy);
@@ -311,61 +297,113 @@ services.AddAuthorization(opt => {
 });
 ```
 
-Note: Here we set up authentication and authorization by middleware
-Looping through so each of our scopes has a respective policy
+Note: Here we set up authentication and authorization by middleware in our services buildup
+
+1. any authentication middleware will do - OIDC with jwts, identity sign-in, etc
+2. for authorization, we'll loop through all our defined scopes and add each as a policy
+   this makes it easy to reference later
+
+----
+
+🔐 Auth Endpoint Configuration 🗝
+
+```csharp [|1,5|3,7|9-10]
+app.MapGet("/aquariums", (IAquariumService service)
+        => service.GetAquariums())
+   .RequireAuthorization(ApiScopes.AquariumManagement);
+
+app.MapPost("/aquariums", (Aquarium request,
+    IAquariumService service) => service.AddAquarium(request))
+   .RequireAuthorization(ApiScopes.AquariumManagement);
+
+app.MapGet("/fish", (IFishService) => service.GetFishes())
+   .RequireAuthorization(SecurityConstants.Scopes.FishManagement);
+```
+<!-- .element: style="height:80%" -->
+
+Notes:
+
+1. We have 2 aquarium endpoints
+2. Each will require the `AquariumManagement Scope`
+3. Our "get fish" endpoint requires the `FishManagement` scope
 
 ---
 
 📜 Documentation ✍
 
-- integrates nicely with Swagger / Swashbuckle
 - leverages OpenAPI metadata
-- configured per-endpoint
+- or integrates with Swagger / Swashbuckle / NSwag
 - tries its hardest to infer (but better to be explicit)
+- configured per-endpoint:
+<!-- .element: style="padding-bottom: 1em" -->
+
+1. Add descriptive metadata for request/responses
+2. Add descriptive metadata for Swagger docs
+3. _(Set up Swagger at startup)_
+
+Note: This will get us all our nice possible response codes and descriptions listed out in our docs,
+and any schema-linking for matching types... a big help for our consumers writing their apps
 
 ----
 
-Using Built-In HttpMetadata
+📜 Adding Built-In HttpMetadata ✍
 
-```csharp [2|4-5|3]
-app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
-  .WithTags("aquariums")
-  .Produces(200, "Get all aquariums" responseType: typeof(Aquarium[]))
-  .Produces(401, "Unauthorized. The request requires authentication")
-  .Produces(500, "Unexpected error");
+```csharp [1-2|3|4|5-7]
+app.MapGet("/aquariums", (IAquariumService service) => service.GetAquariums())
+   .RequireAuthorization(ApiScopes.AquariumManagement)
+   .WithTags("aquariums")
+   .Produces(200, responseType: typeof(Aquarium[]))
+   .Produces(401)
+   .Produces(500);
 ```
 
+Notes: Here's our get-all aquariums endpoint, with the security
+
+1. First a tag, to group this with other "aquarium" requests
+2. On success produces a 200 with an array of Aquariums
+3. Also can produce 401, or 500 (you can imagine other endpoints will have other responses too)
+
 ----
 
-Using Swagger Annotations
+📜 Adding Swagger Annotations ✍
 
-```csharp [|2-5]
-app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
-   .WithMetadata(new SwaggerResponseAttribute(200,
-     type: typeof(Aquarium[]) ))
-   .WithMetadata(new SwaggerResponseAttribute(401))
-   .WithMetadata(new SwaggerResponseAttribute(500));
+```csharp [|4-5]
+app.MapGet("/aquariums", (IAquariumService service) => service.GetAquariums())
+   .RequireAuthorization(ApiScopes.AquariumManagement)
+   .WithTags("aquariums")
+   .WithMetadata(new SwaggerOperationAttribute("Retrieve all Aquariums"));
+   .WithMetadata(new SwaggerResponseAttribute(403, "Forbidden. User is not authorized for this endpoint"));
+   .Produces(200, responseType: typeof(Aquarium[]))
+   .Produces(401)
+   .Produces(500);
 ```
 
+Note: Add the operation description to our Swagger doc as well as a 403 with some more info on what that means
+
+As an aside...
+
 ----
 
-Using "Belt and Suspenders"
+👖 MetaData "Belt and Suspenders" 🧷
 
-```csharp
+```csharp []
 public static RouteHandlerBuilder WithResponse<T>(
   this RouteHandlerBuilder builder, int code, string? description = null)
 {
   builder.Produces(code, responseType: typeof(T));
-  builder.WithMetadata(new SwaggerResponseAttribute(code, 
-    description, typeof(T)));
+  builder.WithMetadata(new SwaggerResponseAttribute(code, description, typeof(T)));
   return builder;
 }
 ```
 
-```csharp
-app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
+```csharp []
+app.MapGet("/aquariums", (IAquariumService service) => service.GetAquariums())
    .WithResponse<Aquarium[]>(200, "Return all fish aquariums")
 ```
+
+Note: I am nervous about covering all the bases, so I use this helper method which adds a response
+code both using the Http Metadata and using Swagger attributes. This is the type'd version for
+responses with a body - we also have one without.
 
 ---
 
@@ -375,9 +413,14 @@ app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
 - compatible with OpenAPI definitions
 - **only supports version by URL query string**
 
+<!-- .element: style="padding-bottom: 1em" -->
+
+1. Define our versions at startup
+2. Register each endpoint for its versions
+
 ----
 
-With .NET ASP.NET Versions
+🔢 With .NET ASP.NET Versions 🆙
 
 ```csharp []
 app.DefineApi()
@@ -386,13 +429,29 @@ app.DefineApi()
    .ReportApiVersions();
 ```
 
-```csharp
-app.MapGet("/aquariums", (IAquariumService service) => service.Getaquariums())
+```csharp [|9-10]
+app.MapGet("/aquariums", (IAquariumService service) => service.GetAquariums())
+   .RequireAuthorization(ApiScopes.AquariumManagement)
+   .WithTags("aquariums")
+   .WithMetadata(new SwaggerOperationAttribute("Retrieve all Aquariums"));
+   .WithResponse<Aquarium[]>(200, "All fish aquariums")
+   .WithResponse(401, "Unauthorized. The request requires authentication")
+   .WithResponse(403, "Forbidden.  User is not authorized for this endpoint")
+   .WithResponse(500, "Internal server error.")
    .HasDeprecatedApiVersion( 0.9 )
    .HasApiVersion( 1.0 );
-````
+```
 
 Note: You can also use OpenAPI Versions
+
+1. Define versions at app startup
+2. Add those versions to the endpoint
+
+I personally like storing these in some static context to make it easier / guarantee consistency.
+
+Also as a side note - part of the motivator for our big min-maxing solution was due to versioning;
+at the time (and maybe now) only URL query versioning was supported, and we wanted our versions in
+the route directly. I won't be talking about that explicitly, but you can probably see how it fits in.
 
 ---
 
