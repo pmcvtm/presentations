@@ -6,6 +6,7 @@ publish/*
 
 # IDE
 .idea/
+.vs/
 
 .vscode/*
 !.vscode/settings.json
@@ -13,6 +14,7 @@ publish/*
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
+
 
 # Logs
 logs

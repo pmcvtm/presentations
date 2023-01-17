@@ -1,0 +1,24 @@
+# Build Files
+[Bb]in
+csx/
+rcf/
+[Oo]bj
+
+# Sample DB (Explicitly added)
+*.sqlite
+
+# User-specific files
+*.suo
+*.csproj.user
+*.ccproj.user
+*.sln.DotSettings.user
+*.pubxml.user
+*.dbmdl
+
+# Packages
+packages/
+/*.dll
+/*.pdb
+/*.XML
+*.nupkg
+*.trx
