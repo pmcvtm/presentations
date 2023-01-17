@@ -115,7 +115,7 @@ I want to focus on the good stuff.
 
 📉 The Principles of Min-Maxing 📈
 
-- ravor larger **up-front** effort to ongoing minutia
+- favor larger **up-front** over **ongoing minutia**
 - leverage **conventions** leaving room for **exceptions**
 - exploit without breaking - **know when to walk away**
 
