@@ -8,6 +8,7 @@ public class OpinionatedEndpointBuilder
     private HttpVerb? _verb;
     private string? _route;
     private Delegate? _handler;
+    private readonly List<Action<RouteHandlerBuilder>> _routeOptions = new();
     private string _resourceName;
     private string? _description;
 
@@ -46,6 +47,8 @@ public class OpinionatedEndpointBuilder
 
         if (_verb is HttpVerb.PUT or HttpVerb.POST)
             builder.WithResponseCode(400, "Bad Request. See the response body for details.");
+
+        foreach (var routeHanlderAction in _routeOptions) routeHanlderAction(builder);
     }
 
     private enum HttpVerb { GET, POST, PUT, DELETE }
@@ -65,6 +68,12 @@ public class OpinionatedEndpointBuilder
             HttpVerb.DELETE => $"Deletes an existing {_resourceName.ToSingular()} using the resource identifier.",
             _ => throw new ArgumentOutOfRangeException($"Unconfigured HTTP verb for default description {_verb}")
         };
+    public OpinionatedEndpointBuilder WithRouteOptions(Action<RouteHandlerBuilder> routeHandlerBuilderAction)
+    {
+        _routeOptions.Add(routeHandlerBuilderAction);
+        return this;
+    }
+
     private OpinionatedEndpointBuilder MapBase(HttpVerb verb, string route, Delegate handler)
     {
         if (_verb != null || _route != null || _handler != null)
