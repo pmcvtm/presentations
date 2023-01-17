@@ -22,7 +22,7 @@ public class AddFish : Feature
 
         await db.AddAsync(fish);
         await db.SaveChangesAsync();
-        return Results.Ok();
+        return Results.Created($"/fish/{fish.Id}", fish);
     }
 
     public record Request(string Name, string Variety, int? AquariumId)

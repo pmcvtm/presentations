@@ -19,7 +19,7 @@ public class AddAquarium : Feature
 
         await db.AddAsync(aquarium);
         await db.SaveChangesAsync();
-        return Results.Ok();
+        return Results.Created($"/aquariums/{aquarium.Id}", aquarium);
     }
 
     public record Request(string Name, string Location, int Capacity)

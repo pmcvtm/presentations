@@ -23,7 +23,7 @@ public class AddDecoration : Feature
 
         await db.AddAsync(decoration);
         await db.SaveChangesAsync();
-        return Results.Ok();
+        return Results.Created($"/decorations/{decoration.Id}", decoration);;
     }
 
     public record Request(string Name, string? Description, int? AquariumId = null)
