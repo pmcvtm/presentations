@@ -1,0 +1,25 @@
+﻿/* Colors */
+/* 
+    #3d449d Dark Blue
+    #316dd9 Light Blue
+    #e77f33 Dark Orange
+    #f1d1a8 Light Orange
+    #eaeff5 Off White
+ */
+
+.backgrounds {
+    background: #eaeff5;
+}
+
+code {
+    border-radius: 0.6em;
+}
+
+.reveal blockquote {
+    width: 90%;
+    box-shadow: none;
+    text-align: left;
+    background-color: white;
+    padding-left: 0.5em;
+    border-radius: 0.6em;
+}
