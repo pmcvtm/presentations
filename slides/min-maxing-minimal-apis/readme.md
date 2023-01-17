@@ -18,7 +18,7 @@ css:
 **Min-Maxing .NET Minimal APIs**
 
 - principles of min-maxing
-- foundations of minimal api
+- foundations of minimal APIs
 - getting large
 - the min-max
 - the future
@@ -36,7 +36,7 @@ css:
   <ul style="flex:5">
     <li style="color:#e73602">he/him</li>
     <li style="color:#e5771e">likes ⛺ 🎶 🏊‍♂️ 🎨 🍻 🤙</li>
-    <li style="color:#87842c">Eng. Manager @ <strong style="color:#cf47ff;font-family: Arial Black">Accenture</strong></li>
+    <li style="color:#87842c">Eng. Manager @ <strong style="color:#cf47ff;font-family: Arial">Accenture</strong></li>
     <li style="color:#2a9d8f">@pmcvtm</li>
     <li style="color:#264653">@loudandabrasive</li>
   </ul>
@@ -59,7 +59,11 @@ css:
 
 Note: From tvtropes.org
 
-Personally I associate this most with Dungeons and Dragons, but it can be done in any game with player statistics or exploitable rules. In D&D you typically become more powerful by playing the game and gaining experience points. That takes time. A min-maxer will instead find rules which act as shortcuts to those benefits.
+Personally I associate this most with Dungeons and Dragons, but it can be done
+in any game with player statistics or exploitable rules. In D&D you typically
+become more powerful by playing the game and gaining experience points.
+
+That takes time. A min-maxer will instead find rules which act as shortcuts to those benefits.
 
 ----
 
@@ -67,36 +71,45 @@ Personally I associate this most with Dungeons and Dragons, but it can be done i
 
 ![Two blue pug-nosed goblin-like creatures](assets/xvart.png)
 
-Note: As an example, this is a Xvart. In D&D, you might play as a human, or a strong orc, or an elegant elf. You can also play as a Xvart. Xvarts are very small, ugly, relatively low-intelligence creatures in comparison to most of the other playable character types. Because of this, when you elect to play as a Xvart, you get _other_ benefits, like extra levels, to compensate and keep you "even" with other players. You're 1 foot tall and smell bad, but you can also sneak around and have magic at a level much higher than your comrades. It _can_ be frowned upon in some circles. It feels like cheating.
+Note: As an example, this is a Xvart. In D&D, you might play as a human, ora strong orc,
+or an elegant elf. You can also play as a Xvart. Xvarts are very small, ugly, relatively
+low-intelligence creatures in comparison to most of the other playable character types.
+
+Because of this, when you elect to play as a Xvart, you get _other_ benefits, like extra levels,
+to compensate and keep you "even" with other players. You're 1 foot tall and smell bad,
+but you can also sneak around and have magic at a level much higher than your comrades.
+
+It _can_ be frowned upon in some circles. It feels like cheating.
 
 ----
 
 ➕ What is Min-Maxing? ➖
 
 > Seen from a purely mathematical and gamist perspective, it's an elegant process of minimum expenditure for maximum result.
-
+>
 > It is **getting the most by doing the least.**
 
 Note: Now, **that** is an attitude I can get behind.
-I am an incredibly lazy - developer. Not in that I don't like to work -- OK maybe in that --
-but more importantly in that I want to minimize the amount of trivial minutia that I'm doing.
+I am an incredibly lazy - developer. Not in that I don't like to work
+-- OK maybe that too --
+but more importantly in that I want to minimize the amount of trivial minutia.
 I want to focus on the good stuff.
 
 ---
 
 ⬆️ The Goals of Min-Maxing ⬆️
 
-- Reduce overhead of building application
-- Focus on features / "important" concerns
-- Still deliver a comprehensive application
+- reduce overhead of building application
+- focus on features / "important" concerns
+- still deliver a comprehensive application
 
 ---
 
 📉 The Principles of Min-Maxing 📈
 
-- Favor larger **up-front** effort to ongoing minutia
-- Leverage **conventions** leaving room for **exceptions**
-- Exploit without breaking - **know when to walk away**
+- ravor larger **up-front** effort to ongoing minutia
+- leverage **conventions** leaving room for **exceptions**
+- exploit without breaking - **know when to walk away**
 
 Note: In all of these, we want to be pragmatic and know our limits
 
@@ -108,7 +121,7 @@ Note: If you're familiar with web development, these will look familiar! If you 
 
 ---
 
-🤏 Minimal APIs 
+🤏 Minimal APIs 6️⃣
 
 - introduced in ASP.NET Core 6.0
 - REST-style web requests w/o MVC scaffolding
@@ -125,15 +138,15 @@ Note:
 
 🐠 Our Sample API 🌿
 
-- Manage Aquariums (CRUD)
-- Manage Fish (CRUD)
-- Manage Decor (CRUD)
-- Feed the Fish (Action)
-- Clean the Aquarium (Status, Action)
+- manage Aquariums (CRUD)
+- manage Fish (CRUD)
+- manage Decor (CRUD)
+- feed the Fish (Action)
+- clean the Aquarium (Status, Action)
 
-Note: As we continue talking about Minimal APIs we're going to use a Fish Aquarium management
-application as our example. This is an API with more than type of consumer - someone
-might have a CLI for it, or a web app with a UI. We don't know.
+Note: As we continue talking about Minimal APIs we're going to use a Fish Aquarium
+management application as our example. This is an API with more than type of consumer:
+someone might have a CLI for it, or a web app with a UI. We don't know.
 But it has these basic features:
 
 (CRUD is Create Read Update Delete)
@@ -152,9 +165,9 @@ So here's what we can get from that tutorial as far as our fish!
 
 🐡 Our Requirements 🦈
 
-- Well- and self- documented
-- Secure and validated endpoints
-- Open for expansion and extension
+- well- and self- documented
+- secure and validated endpoints
+- open for expansion and extension
 
 Note:
 
@@ -163,18 +176,26 @@ We of course need secure endpoints and robust request validation
 We need to get these features added in a way we can easily add more,
   or extend the inner workings to support other components
 
----
+----
 
-<!-- Screenshot here -->
+😤 A Nice Documentation Site 🥲
+
+![Screenshot of nice, readable Swagger UI](assets/api-swagger-ui.jpg)
+
+Note: We want a sexy documentation site like this:
+
+- (consider going to live site)
+- each endpoint has a description, the schemas are consistent and linkable
+- response codes are set up
 
 ---
 
 👩‍💻 Sidebar: Sample Code 👨‍💻
 
-- Available at [github.com/pmcvtm/presentations](https://github.com/pmcvtm/presentations)
-- Linked directly from THAT site under resources
-- Representative, but **incomplete**
-- Showing code for concepts _(you can copy/paste later)_
+- available at [github.com/pmcvtm/presentations](https://github.com/pmcvtm/presentations)
+- linked directly from THAT site under resources
+- representative, but **incomplete**
+- showing code for concepts _(you can copy/paste later)_
 
 Note:
 
@@ -276,7 +297,6 @@ infrastructure we need to get by
 
 ---
 
-
 🔒 Security / Auth 🔑
 
 - uses ASP.NET middleware **just great**
@@ -347,9 +367,9 @@ Notes:
 - configured per-endpoint:
 <!-- .element: style="padding-bottom: 1em" -->
 
-1. Add descriptive metadata for request/responses
-2. Add descriptive metadata for Swagger docs
-3. _(Set up Swagger at startup)_
+1. add descriptive metadata for request/responses
+2. add descriptive metadata for Swagger docs
+3. _(set up Swagger at startup)_
 
 Note: This will get us all our nice possible response codes and descriptions listed out in our docs,
 and any schema-linking for matching types... a big help for our consumers writing their apps
@@ -490,7 +510,7 @@ Note: Here's our whole endpoint for getting aquariums:
 
 ----
 
-🔂 Again 👐
+🔂 (All Together Now) 👐
 
 ```csharp [|1|4-5|6|]
 app.MapPost("/aquariums", (Aquarium request, IAquariumService service) => service.CreateAquarium(request))
@@ -505,6 +525,7 @@ app.MapPost("/aquariums", (Aquarium request, IAquariumService service) => servic
    .HasDeprecatedApiVersion( 0.9 )
    .HasApiVersion( 1.0 );
 ```
+
 Note: Again!
 
 1. For our POST / create method
@@ -513,7 +534,7 @@ Note: Again!
 
 ----
 
-🔁 And Again 👐
+🔁 Again 👐
 
 ```csharp [|1|9|]
 app.MapPut("/aquariums/{id}",(int id, Aquarium request, IAquariumService service) => service.UpdateAquarium(id, request))
@@ -948,7 +969,7 @@ Note: Here are our pass-thru methods
 
 🔑 Security `Build()` 👷
 
-```csharp [|6-7|8-9|10-13|]
+```csharp [|6-7|8-9|10-14|]
 public void Build()
 {
     var builder = _verb switch //...
@@ -960,8 +981,8 @@ public void Build()
         builder.RequireAuthorization(_scopes);
     else
     {
-        var scopes = ApiScopes.GetForResource(_resourceName);
-        builder.RequireAuthorization(scopes);
+        if(ApiScopes.TryGetForResource(_resourceName, out var scopes))
+          builder.RequireAuthorization(scopes);
     }
 }
 ```
@@ -1301,13 +1322,37 @@ I can dig it. Definitely will use Filters for some things.
 
 🌳 Growing with `OpinionatedBuilder` 🪓
 
+- add new functionality (with care)
+  - _stick with common concerns - like versioning_
+- add conventions as patterns arise
+- is parsing metadata worth it??  🤔
+
 ---
 
-👋 When To Walk Away (Or Not Start) 🚶‍♂️
+🚶 When To Walk Away (Or Not Start) 👋
+
+- 🗿 can you define a "typical" case?
+- 💬 can your team support tribal knowledge?
+- 🤏 do you need to add conventions?
+
+Note:
+
+- these patterns are "right-sized"
+- too large of teams make conventions hard
+  - (presumably not all apps are like this)
+- small enough means you should stick with the program
 
 ---
+
+<!-- .slide: data-background-color="#316dd9" -->
 
 ## Questions
+
+- why we min-max
+- minimal API fundamentals
+- minimal API integrations
+- `OpinionatedEndpointBuilder`
+- the future 🔮
 
 ---
 
