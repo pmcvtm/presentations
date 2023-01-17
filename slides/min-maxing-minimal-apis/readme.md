@@ -146,6 +146,14 @@ Note:
 
 ---
 
+🧐 Why Listen to Me? 🤔
+
+- 10+ years in .NET web dev (MVC) across industries
+- "recently" large Razor Pages app
+- last year- a fit for minimal APIs sweet spot
+
+---
+
 🐠 Our Sample API 🌿
 
 - manage Aquariums (CRUD)
