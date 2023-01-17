@@ -10,8 +10,14 @@ css:
 - overrides.css
 - atom-one-dark-reasonable.min.css
 ---
+<!-- .slide: data-background-color="#3d449d" -->
 
 # Min-Maxing .NET Minimal APIs
+<!-- .element: class="r-fit-text", style="color:#eaeff5"-->
+
+![Icon of 20-sided die](assets/d20-icon.png)
+
+<!-- Icon by pinkbirch: https://www.flaticon.com/free-icon/dice-d20_9133916 -->
 
 ---
 
@@ -48,6 +54,8 @@ css:
 </div>
 
 ---
+
+<!-- .slide: data-background-color="#316dd9" -->
 
 ## Principles of Min-Maxing
 
@@ -114,6 +122,8 @@ I want to focus on the good stuff.
 Note: In all of these, we want to be pragmatic and know our limits
 
 ---
+
+<!-- .slide: data-background-color="#316dd9" -->
 
 ## Minimal API Foundations
 
@@ -189,6 +199,8 @@ Note: We want a sexy documentation site like this:
 - response codes are set up
 
 ---
+
+<!-- .slide: data-background-color="#f1d1a8" -->
 
 👩‍💻 Sidebar: Sample Code 👨‍💻
 
@@ -267,10 +279,14 @@ Notes:
 
 ----
 
+<!-- .slide: data-background-color="#f1d1a8" -->
+
 🍰 Sidebar: Vertical Slices 🍕
 
 ![Diagram of several "layers" of an application (UI, Application, Domain, DB) and a "slice" running vertically across them](https://jimmybogardsblog.blob.core.windows.net/jimmybogardsblog/3/2018/Picture0030.png)
+
 Source: [jimmybogard.com](https://jimmybogard.com/vertical-slice-architecture)
+<!-- .element: style="font-size: 0.5em" -->
 
 Note: Made popular by Jimmy Bogard - If you think about our concerns when implementing
 a feature in an application or system, we typically have these layers. And a historically
@@ -286,12 +302,16 @@ set up to "fall" into this organizational pattern.
 
 ---
 
+<!-- .slide: data-background-color="#316dd9" -->
+
 ## Getting Large
 
 Note: Let's start addressing the actual concerns we have in our api; the features and
 infrastructure we need to get by
 
 ---
+
+<!-- .slide: data-background-color="#3d449d" -->
 
 ### Important Integrations
 
@@ -617,6 +637,8 @@ So we've grown from our little fishbowl - but it's messy, and very repetitious.
 
 ---
 
+<!-- .slide: data-background-color="#e77f33" -->
+
 ### Feeling the Pain
 
 ---
@@ -648,11 +670,15 @@ Note: Whether a 404 makes sense, and which CRUD action we're taking
 
 ---
 
+<!-- .slide: data-background-color="#316dd9" -->
+
 ## Min-Maxing
 
 ---
 
-### Starting Small
+<!-- .slide: data-background-color="#3d449d" -->
+
+### Softball Solutions
 
 ---
 
@@ -785,7 +811,10 @@ Note:
 Notes: When we talked about the patterns that emerge,
 they were around information we sort of "have" in our RouteBuilder,
 or at least used in proximity of. However we can't get to it easily.
+
 ---
+
+<!-- .slide: data-background-color="#3d449d" -->
 
 ### We can build it 👷‍
 
@@ -1079,6 +1108,8 @@ Note: For descriptive swagger metadata:
 
 ----
 
+<!-- .slide: data-background-color="#f1d1a8" -->
+
 1️⃣ Sidebar: `ToSingular()` 😂
 
 ```csharp
@@ -1122,6 +1153,8 @@ Note: Our final method in our builder lets us stack anything direct to `RouteHan
 This leaves us open to extension; recognizing new repeated patterns, etc.
 
 ---
+
+<!-- .slide: data-background-color="#3d449d" -->
 
 ### Results
 
@@ -1220,9 +1253,13 @@ the behavior, and not the administrivia.
 
 ---
 
-## The Future
+<!-- .slide: data-background-color="#316dd9" -->
+
+## The Future 🔮
 
 ---
+
+<!-- .slide: data-background-color="#3d449d" -->
 
 ### .NET 7
 
@@ -1316,7 +1353,9 @@ I can dig it. Definitely will use Filters for some things.
 
 ---
 
-### Even Larger
+<!-- .slide: data-background-color="#3d449d" -->
+
+### Even Larger 🥲
 
 ---
 
