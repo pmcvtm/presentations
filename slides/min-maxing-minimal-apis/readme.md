@@ -770,7 +770,7 @@ or at least used in proximity of. However we can't get to it easily.
 
 ---
 
-`OpinionatedEndpointBuilder`
+🤔 `OpinionatedEndpointBuilder` 🔚
 
 - tracks HTTP verb + resource name
 - sets conventional defaults
@@ -778,7 +778,16 @@ or at least used in proximity of. However we can't get to it easily.
 
 ---
 
-💀 Bare Bones 🦴
+🌯 Opinionated Builder 🫔
+
+- new builder class (with `Build()`)
+- wrap `IEndpointRouteBuilder` methods
+- track state we want to make conventional decisions around
+- force Feature endpoints to use new builder
+
+----
+
+🫔 Builder: Constructor and Mapping 🏗️
 
 ```csharp [|1|8,9|3-5,11-17|6,15]
 public class OpinionatedEndpointBuilder
@@ -804,17 +813,16 @@ public class OpinionatedEndpointBuilder
 ```
 <!-- .element: class="stretch" -->
 
-Notes: 
+Notes:
 
-- Constructor takes `IEndpointRouteBuilder`
-- Tracks `verb`, `route`, `handler`
-- **private** method to set those values
-  - also track the `resource name` from the URL
-
+1. Constructor takes `IEndpointRouteBuilder`
+2. Tracks `verb`, `route`, `handler`
+3. **private** method to set those values
+4. also store the `resource name` from the URL
 
 ----
 
-💀 Bare Bones: Endpoint Registration 🔀
+🫔 Builder: Endpoint Registration 🔀
 
 ```csharp [5-16]
 public class OpinionatedEndpointBuilder
@@ -838,11 +846,13 @@ public class OpinionatedEndpointBuilder
 ```
 <!-- .element: class="stretch" -->
 
+Note: A new method for each of the `IEndpointRouteBuilder` mappers
+
 ----
 
-💀 Bare Bones: `Build()` 🚧
+🫔 Builder: `Build()` 🚧
 
-```csharp [5-19|10-17]
+```csharp [5-19|10-17|10]
 public class OpinionatedEndpointBuilder
 {
     // ...
@@ -869,11 +879,14 @@ public class OpinionatedEndpointBuilder
 <!-- .element: class="stretch" -->
 
 Notes: And like any builder, we're going to need a `build()` method!
-Here we pass through our builder methods into the `EndpointRouteBuilder`.
+
+1. Here we'll actually map the endpoints
+2. Pattern match based on verb and pass-through
+3. Save `RouteHandlerBuilder` for later use
 
 ----
 
-Refactoring `IFeature` ➡ `Feature`
+💀 Refactoring `IFeature` ➡ `Feature` 🍕
 
 ```csharp [|3|4-5|]
 public abstract class Feature
@@ -900,6 +913,14 @@ application.UseEndpoints(endpoints =>
 
 🔑 Refactored Security Scopes 🔏
 
+- pass-thru extension methods
+  - authorized _or_ anonymous
+- introduce **default** lookup
+
+----
+
+🔑 Security Builder Methods 🏗️
+
 ```csharp [|1-7|9-15|]
 private ApiScope[] _scopes;
 
@@ -918,9 +939,14 @@ public OpinionatedEndpointBuilder AllowAnonymous()
 }
 ```
 
----
+Note: Here are our pass-thru methods
 
-🔑 Refactored Security Scopes 🔏
+1. We can pass in our scopes
+2. Or we can specify that it's aonymous
+
+----
+
+🔑 Security `Build()` 👷
 
 ```csharp [|6-7|8-9|10-13|]
 public void Build()
@@ -940,19 +966,29 @@ public void Build()
 }
 ```
 
+Note: In our build method:
+
+1. AllowAnonymous takes precedence
+2. Or we set explicit scopes
+3. Finally we add our **default** handler - a lookup
+
+You might sneak more advanced lookup logic here, or whatever
+your performance requirements are.
+
 ---
 
 🏗 Refactored Metadata 📑
 
-- leverage endpoint info builder
-- track _new_ contextual info in builder
 - conventional defaults + overrides
+- document responses based on context in builder
+  - universally, or by **verb**, **route**, or **auth**
+- save `description` or set conventionally
 
 ----
 
 💬 Refactored Responses 🔢
 
-```csharp [|3|6|8-12|14-15|17-18|]
+```csharp [|6|8-12|14-15|17-18|]
 public void Build()
 {
     var builder = _verb switch //...
@@ -977,24 +1013,12 @@ public void Build()
 ```
 <!-- .element: class="stretch" -->
 
-----
+Note: Responses!
 
-💬 Refactored Responses 🆗
-
-```csharp [|1-5|7-12|]
-public OpinionatedEndpointBuilder WithResponse(int code, string description)
-{
-    _routeOptions.Add(b => b.WithResponse(code, description));
-    return builder;
-}
-
-public OpinionatedEndpointBuilder WithResponse<T>(int code, string? description = null)
-{
-    _routeOptions.Add(b => b.Produces(code, responseType = typeof(T)));
-    _routeOptions.WithMetadata(new SwaggerResponseAttribute(code, description, typeof(T)));
-    return builder;
-}
-```
+1. 500: anything can always wrong always
+2. When we're using auth: document 401 or 403
+3. When it's `id` - 404
+4. 400 for POST or PUT
 
 ---
 
@@ -1024,6 +1048,14 @@ builder.WithMetadata(new SwaggerOperationAttribute(GetDescriptionOrDefault()));
 ```
 <!-- .element: class="stretch" -->
 
+Note: For descriptive swagger metadata:
+
+1. New method for storing an explicit description
+2. OTHERWISE it's by verb:
+   - For CRUD operations these are all the same
+   - We plug in the resource name, but otherwise identical
+3. Finally, we call this method and add it on every endpoint
+
 ----
 
 1️⃣ Sidebar: `ToSingular()` 😂
@@ -1042,7 +1074,9 @@ public static string ToSingular(this string input) =>
 
 🎣 Catch All 🥅
 
-```csharp [|1|2-6|8-14]
+allow a direct pass to `RouteHandlerBuilder`
+
+```csharp [|1-6|8-14]
 private readonly List<Action<RouteHandlerBuilder>> _routeOptions = new();
 public OpinionatedEndpointBuilder WithRouteOption(Action<RouteHandlerBuilder> routeHandlerBuilderAction)
 {
@@ -1058,13 +1092,21 @@ public void Build()
         endpointAction(builder);
 }
 ```
+
+Note: Our final method in our builder lets us stack anything direct to `RouteHandlerBuilder`
+
+1. Save up `Actions` on the builder
+2. After we register in `Build`, run them all
+
+This leaves us open to extension; recognizing new repeated patterns, etc.
+
 ---
 
 ### Results
 
 ---
 
-↩ Starting Endpoint 😓
+↩ Fully Explicit Endpoint 😓
 
 ```csharp []
 public class AddAquarium
@@ -1089,12 +1131,13 @@ public class AddAquarium
 ```
 <!-- .element: class="stretch" -->
 
-Note: Here was our starting point. And obviously some of these could be refactored into
-helper methods (like for common response codes) but still, I have to remember to add those in.
+Note: Here was our starting point. Now granted we have that half-way point,
+but when using `RouteHandlerBuilder` we know there is **always** some repetition
+built in
 
 ---
 
-🔚 Conventional Endpoint 😄
+🔚 Conventional Opinionated Endpoint 😄
 
 ```csharp []
 public class AddAquarium
@@ -1102,7 +1145,7 @@ public class AddAquarium
     public void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
         builder.MapPost("/aquariums", Handle)
-               .WithResponse<Aquarium>(201);
+               .WithResponse<Aquarium>(201, "Aquarium created");
     }
 
     public Task<IResult> Handle(Validator validator, IFishContext db, Request request)
@@ -1112,9 +1155,12 @@ public class AddAquarium
 }
 ```
 
+Note: Our **conventional** case for endpoints has almost no "extra" code -
+just the endpoint, success response, and then the feature's functionality
+
 ---
 
-🔚 Exceptional Endpoint 😸
+🔚 Exceptional Opinionated Endpoint 😸
 
 ```csharp []
 public class CleanAquarium
@@ -1134,10 +1180,9 @@ public class CleanAquarium
 }
 ```
 
-Note: Here is an exceptional case
+Note: For an exceptional case we have a little more work:
 
 - add custom scope + description
-- specify the 200
 - 404 is valid and will get picked up from ID param
 
 ---
