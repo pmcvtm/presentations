@@ -3,9 +3,7 @@ title: 'Min-Maxing .NET 6 Minimal APIs'
 theme: simple
 revealOptions:
   transition: none
-#  controls: false
   progress: false
-  # navigationMode: linear
 css:
 - overrides.css
 - atom-one-dark-reasonable.min.css
