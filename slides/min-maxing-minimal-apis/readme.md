@@ -1,5 +1,5 @@
 ﻿---
-title: 'Min-Maxing .NET 6 Minimal APIs'
+title: 'Min-Maxing .NET Minimal APIs'
 theme: simple
 revealOptions:
   transition: none
