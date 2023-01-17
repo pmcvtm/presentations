@@ -6,7 +6,8 @@ public class RemoveAquarium : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapDelete("/aquariums/{id:int}", Handle);
+        builder.MapDelete("/aquariums/{id:int}", Handle)
+            .WithResponseCode<Aquarium>(200, "Aquarium deleted");
     }
 
     public async Task<IResult> Handle(int id, FishContext db)

@@ -6,7 +6,8 @@ public class ReadAllDecorations : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapGet("/decorations", HandleGetAll);
+        builder.MapGet("/decorations", HandleGetAll)
+            .WithResponseCode<Decoration[]>(200, "All decorations");
     }
 
     public Task<IResult> HandleGetAll(FishContext db)

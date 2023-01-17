@@ -6,7 +6,8 @@ public class RemoveDecoration : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapDelete("/decorations/{id:int}", Handle);
+        builder.MapDelete("/decorations/{id:int}", Handle)
+            .WithResponseCode<Decoration>(200, "Decor deleted");
     }
 
     public async Task<IResult> Handle(int id, FishContext db)

@@ -6,7 +6,8 @@ public class ReadAquarium : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapGet("/aquariums/{id:int}", HandleGetOne);
+        builder.MapGet("/aquariums/{id:int}", HandleGetOne)
+            .WithResponseCode<Aquarium>(200, "The specified aquarium");
     }
 
     public async Task<IResult> HandleGetOne(int id, FishContext db)

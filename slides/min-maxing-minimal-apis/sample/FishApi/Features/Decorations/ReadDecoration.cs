@@ -6,7 +6,8 @@ public class ReadDecoration : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapGet("/decorations/{id:int}", HandleGetOne);
+        builder.MapGet("/decorations/{id:int}", HandleGetOne)
+            .WithResponseCode<Decoration>(200, "The specified decoration");
     }
 
     public async Task<IResult> HandleGetOne(int id, FishContext db)

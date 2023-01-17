@@ -7,7 +7,8 @@ public class AddDecoration : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapPost("/decorations", Handle);
+        builder.MapPost("/decorations", Handle)
+            .WithResponseCode<Decoration>(201, "Decoration created");
     }
 
     public async Task<IResult> Handle(Validator validator, FishContext db, Request request)

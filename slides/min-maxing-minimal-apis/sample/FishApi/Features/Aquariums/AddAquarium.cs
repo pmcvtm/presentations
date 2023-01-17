@@ -7,7 +7,8 @@ public class AddAquarium : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapPost("/aquariums", Handle);
+        builder.MapPost("/aquariums", Handle)
+            .WithResponseCode<Aquarium>(201, "Aquarium created");
     }
 
     public async Task<IResult> Handle(Validator validator, FishContext db, Request request)

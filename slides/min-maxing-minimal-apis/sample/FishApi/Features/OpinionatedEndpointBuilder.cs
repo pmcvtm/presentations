@@ -35,7 +35,7 @@ public class OpinionatedEndpointBuilder
             HttpVerb.POST => _endpoints.MapPost(_route, _handler),
             HttpVerb.PUT => _endpoints.MapPut(_route, _handler),
             HttpVerb.DELETE => _endpoints.MapDelete(_route, _handler),
-            _ => throw new ArgumentOutOfRangeException($"Unconfigured HTTP verb for mapping: {_verb}")
+            _ => throw new NotImplementedException($"Unconfigured HTTP verb for mapping: {_verb}")
         };
 
         builder.WithMetadata(new SwaggerOperationAttribute(GetDescriptionOrDefault()));
@@ -66,8 +66,15 @@ public class OpinionatedEndpointBuilder
             HttpVerb.POST => $"Creates {_resourceName} based on the supplied values.",
             HttpVerb.PUT => $"Updates {_resourceName} based on the resource identifier.",
             HttpVerb.DELETE => $"Deletes an existing {_resourceName.ToSingular()} using the resource identifier.",
-            _ => throw new ArgumentOutOfRangeException($"Unconfigured HTTP verb for default description {_verb}")
+            _ => throw new NotImplementedException($"Unconfigured HTTP verb for default description {_verb}")
         };
+
+    public OpinionatedEndpointBuilder WithResponseCode(int code, string? description = null)
+        => WithRouteOptions(rhb => rhb.WithResponseCode(code, description));
+
+    public OpinionatedEndpointBuilder WithResponseCode<T>(int code, string? description = null)
+        => WithRouteOptions(rhb => rhb.WithResponse<T>(code, description));
+
     public OpinionatedEndpointBuilder WithRouteOptions(Action<RouteHandlerBuilder> routeHandlerBuilderAction)
     {
         _routeOptions.Add(routeHandlerBuilderAction);

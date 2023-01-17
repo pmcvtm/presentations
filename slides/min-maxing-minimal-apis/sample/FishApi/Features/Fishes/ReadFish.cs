@@ -6,7 +6,8 @@ public class ReadFish : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapGet("/fish/{id:int}", HandleGetOne);
+        builder.MapGet("/fish/{id:int}", HandleGetOne)
+            .WithResponseCode<Fish>(200, "The specified fish");
     }
 
     public async Task<IResult> HandleGetOne(int id, FishContext db)

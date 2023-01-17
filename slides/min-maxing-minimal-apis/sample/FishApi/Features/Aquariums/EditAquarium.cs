@@ -7,7 +7,8 @@ public class EditAquarium : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapPut("/aquariums/{id:int}", Handle);
+        builder.MapPut("/aquariums/{id:int}", Handle)
+            .WithResponseCode<Aquarium>(200, "Aquarium updated");
     }
 
     public async Task<IResult> Handle(int id, Request request, Validator validator, FishContext db)

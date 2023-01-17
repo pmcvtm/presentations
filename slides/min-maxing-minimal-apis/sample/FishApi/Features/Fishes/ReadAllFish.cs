@@ -6,7 +6,8 @@ public class ReadAllFish : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapGet("/fish", HandleGetAll);
+        builder.MapGet("/fish", HandleGetAll)
+            .WithResponseCode<Fish[]>(200, "All fish");
     }
 
     public Task<IResult> HandleGetAll(FishContext db)

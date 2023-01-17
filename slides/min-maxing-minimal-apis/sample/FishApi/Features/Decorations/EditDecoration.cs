@@ -7,7 +7,8 @@ public class EditDecoration : Feature
 {
     public override void ConfigureEndpoint(OpinionatedEndpointBuilder builder)
     {
-        builder.MapPut("/decorations/{id:int}", Handle);
+        builder.MapPut("/decorations/{id:int}", Handle)
+            .WithResponseCode<Decoration>(200, "Decoration updated");
     }
 
     public async Task<IResult> Handle(int id, Request request, Validator validator, FishContext db)
