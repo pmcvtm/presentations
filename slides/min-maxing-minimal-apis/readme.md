@@ -173,9 +173,7 @@ But it has these basic features:
 
 <!-- Image source: Nolan Krattinger on https://unsplash.com/photos/ADcXaqQ9vOM -->
 
-Note: An image of a fishbowl with a goldfish cramped in it.
-
-So here's what we can get from that tutorial as far as our fish!
+Note: An image of a beautiful aquarium
 
 ---
 
