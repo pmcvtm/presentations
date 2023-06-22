@@ -708,6 +708,46 @@ collect our universal or parameterize-able customizations and pull out new exten
 methods. But this is only about half of them! Still lots we can do.
 
 ---
+
+📦 .NET 7 Route Groups 🖇
+
+- allows grouping by prefix
+- designed with auth and metadata in mind
+- _still a bit repetitious_
+
+----
+
+📦 Route Groups in Action 🖇
+
+```csharp []
+app.MapGroup("/public/fish")
+    .MapFishApi()
+    .WithDefaultResponseCodes()
+    .AllowAnonymous();
+
+app.MapGroup("/private/fish")
+    .MapFishApi()
+    .WithDefaultResponseCodes()
+    .WithAuthResponseCodes()
+    .RequireAuthorization();
+
+public static RouteGroupBuilder MapFishApi(this RouteGroupBuilder group)
+{
+    group.MapGet("/", GetAllFish).WithDescription("Get all the fish");
+    group.MapGet("/{id}", GetSingleFish).WithDescription("Get a specific fish");
+    group.MapPost("/", AddFish).WithDescription("Create a new fish");
+    group.MapPut("/{id}", EditFish).WithDescription("Edit a fish");
+    group.MapDelete("/{id}", DeleteFish).WithDescription("Remove a fish");
+
+    return group;
+}
+```
+<!-- .element: class="stretch" -->
+
+Note: Route groups let you apply customizations to a bunch of endpoints per prefix.
+I don't use these since we were sticking with LTS, but also for other reasons we'll get into.
+
+---
 🍕 The Feature Pattern 🍰
 
 - introduce `IFeature` to hold endpoint definitions
@@ -1288,43 +1328,6 @@ the behavior, and not the administrivia.
 <!-- .slide: data-background-color="#3d449d" -->
 
 ### .NET 7
-
----
-
-📦 Route Groups 🖇
-
-- allows grouping by prefix
-- designed with auth and metadata in mind
-- _still repeating some code_
-
-----
-
-📦 Route Groups in Action🖇
-
-```csharp []
-app.MapGroup("public/todos")
-    .MapTodosApi()
-    .WithDefaultResponseCodes()
-    .AllowAnonymous();
-
-app.MapGroup("/private/todos")
-    .MapTodosApi()
-    .WithDefaultResponseCodes()
-    .WithAuthResponseCodes()
-    .RequireAuthorization();
-
-public static RouteGroupBuilder MapTodosApi(this RouteGroupBuilder group)
-{
-    group.MapGet("/", GetAllTodos).WithDescription("Get all the Todos");
-    group.MapGet("/{id}", GetSingleTodo).WithDescription("Get a todo");
-    group.MapPost("/", AddTodo).WithDescription("Create a todo");
-    group.MapPut("/{id}", EditToDo).WithDescription("Edit a todo");
-    group.MapDelete("/{id}", DeleteToDo).WithDescription("Remove a todo");
-
-    return group;
-}
-```
-<!-- .element: class="stretch" -->
 
 ---
 
