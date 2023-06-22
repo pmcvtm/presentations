@@ -689,11 +689,10 @@ Note: Whether a 404 makes sense, and which CRUD action we're taking
 🫴 Refactoring 🤌
 
 ```csharp []
-public static RouteHanderBuilder WithDefaults
-  (this RouteHandlerBuilder builder, string name)
+public static RouteHanderBuilder WithDefaultResponses
+  (this RouteHandlerBuilder builder)
 {
     return builder
-      .WithTags(name)
       .WithResponse(401, "Unauthorized. The request requires authentication")
       .WithResponse(403, "Forbidden.  User is not authorized for this endpoint")
       .WithResponse(404, "Not found. The resource identifier is invalid")
