@@ -686,6 +686,28 @@ Note: Whether a 404 makes sense, and which CRUD action we're taking
 
 ---
 
+🫴 Refactoring 🤌
+
+```csharp []
+public static RouteHanderBuilder WithDefaults
+  (this RouteHandlerBuilder builder, string name)
+{
+    return builder
+      .WithTags(name)
+      .WithResponse(401, "Unauthorized. The request requires authentication")
+      .WithResponse(403, "Forbidden.  User is not authorized for this endpoint")
+      .WithResponse(404, "Not found. The resource identifier is invalid")
+      .WithResponse(500, "Internal server error.");
+}
+
+```
+
+Note: I can imagine some of you were getting impatient through that last section.
+"PATRICK WHY ARE YOU DOING THAT!?" So this is our lowest hanging fruit - we can
+collect our universal or parameterize-able customizations and pull out new extension
+methods. But this is only about half of them! Still lots we can do.
+
+---
 🍕 The Feature Pattern 🍰
 
 - introduce `IFeature` to hold endpoint definitions
