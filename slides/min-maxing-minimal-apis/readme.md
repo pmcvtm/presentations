@@ -848,9 +848,9 @@ Note:
 
 🍕 The Feature Pattern 🍰
 
+- move our endpoints out of `Program.cs`
 - introduce `IFeature` to hold endpoint definitions
-- reflect to obtain them all
-- loop and register each endpoint set
+- reflect, loop and register each endpoint set
 - gives room for functionality + encapsulates handling
 
 ----
