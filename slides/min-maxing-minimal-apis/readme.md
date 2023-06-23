@@ -1386,7 +1386,12 @@ the behavior, and not the administrivia.
 
 <!-- .slide: data-background-color="#3d449d" -->
 
-### .NET 7
+### .NET 8 8️⃣
+
+- form value binding
+- better metadata/annotation support
+
+Note: I am just glad they're working on it!
 
 ---
 
