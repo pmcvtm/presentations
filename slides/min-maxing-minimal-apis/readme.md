@@ -209,7 +209,7 @@ Note: We want a sexy documentation site like this:
 👩‍💻 Sidebar: Sample Code 👨‍💻
 
 - available at [github.com/pmcvtm/presentations](https://github.com/pmcvtm/presentations)
-- linked directly from THAT site under resources
+- will be a linked in session resources in the future
 - representative, but **incomplete**
 - showing code for concepts _(you can copy/paste later)_
 
