@@ -913,14 +913,6 @@ Note: Here is an endpoint in that feature pattern
 
 ---
 
-🔁 Refactor Common MetaData ℹ
-
-- extract new extension methods
-- pull "universal" response codes
-- repeat / customize as needed
-
----
-
 ↔ `RouteHandlerBuilder` 🚧
 
 - designed for extension methods
