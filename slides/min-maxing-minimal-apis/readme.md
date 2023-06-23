@@ -40,7 +40,7 @@ css:
   <ul style="flex:5">
     <li style="color:#e73602">he/him</li>
     <li style="color:#e5771e">likes ⛺ 🎶 🏊‍♂️ 🎨 🍻 🤙</li>
-    <li style="color:#87842c">Eng. Manager @ <strong style="color:#cf47ff;font-family: Arial">Accenture</strong></li>
+    <li style="color:#87842c; text-decoration:line-through">Eng. Manager @ <strong style="color:#cf47ff;font-family: Arial">Accenture</strong></li>
     <li style="color:#2a9d8f">@pmcvtm</li>
     <li style="color:#264653">@loudandabrasive</li>
   </ul>
