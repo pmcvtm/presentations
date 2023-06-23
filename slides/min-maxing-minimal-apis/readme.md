@@ -913,6 +913,19 @@ Note: Here is an endpoint in that feature pattern
 
 ---
 
+📈 We're Better Off 👍
+
+- more organized
+- DRY'd up obvious parts
+- still repeating patterns by:
+  - resource
+  - HTTP method
+
+Note: But we're still customizing most of our endpoints individually,
+and when we're writing new features they're still mostly the same.
+
+---
+
 ↔ `RouteHandlerBuilder` 🚧
 
 - designed for extension methods
