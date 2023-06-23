@@ -747,6 +747,60 @@ Note: Route groups let you apply customizations to a bunch of endpoints per pref
 I don't use these since we were sticking with LTS, but also for other reasons we'll get into.
 
 ---
+
+🔻 .NET 7 Endpoint Filters 🌟
+
+- like filters in MVC
+- applied individually or to groups
+- use case: validation
+
+----
+
+🔻 Endpoint Filters in Action 🌟
+
+```csharp
+app.MapPost("/fish/", ColorName)
+    .AddEndpointFilter(async (invocationContext, next) =>
+    {
+        var fish = invocationContext.GetArgument<AddFishModel>(0);
+
+        if (fish.Status == "Dead")
+            return Results.Problem("Dead fish not allowed!");
+
+        return await next(invocationContext);
+    });
+
+// or
+
+app.MapPost("/fish/", AddFish)
+   .AddEndpointFilter<ValidateFish>();
+```
+
+Note: You can imagine getting smarter about this. And having a filter which searches
+IoC container for the relevant validator. [Ben Foster](https://benfoster.io/blog/minimal-api-validation-endpoint-filters/) has a good guide for this.
+
+---
+
+🌟 Filters and Groups Together 🤝
+
+```csharp []
+var all = app
+  .MapGroup("/")
+  .WithDefaultResponseCodes()
+  .AddEndpointFilter<ValidationEndpointFilter>();
+
+var aquariums = all.MapGroup("aquariums")
+  .RequireAuthorization("AquariumManagement")
+  .MapGet("/", GetAquariums)
+  //...
+```
+
+Note: You can see how this starts to get a little smarter, a bit less
+code, but also a little bit more magic... You still are doing **customization**
+rather than conventions, it's just better organized and less code.
+We'll come back to this.
+
+---
 🍕 The Feature Pattern 🍰
 
 - introduce `IFeature` to hold endpoint definitions
@@ -1327,57 +1381,6 @@ the behavior, and not the administrivia.
 <!-- .slide: data-background-color="#3d449d" -->
 
 ### .NET 7
-
----
-
-🔻 Endpoint Filters 🌟
-
-- like filters in MVC
-- applied individually or to groups
-- use case: validation
-
-----
-
-🔻 Endpoint Filters in Action 🌟
-
-```csharp
-app.MapGet("/colorSelector/{color}", ColorName)
-    .AddEndpointFilter(async (invocationContext, next) =>
-    {
-        var color = invocationContext.GetArgument<string>(0);
-
-        if (color == "Red")
-            return Results.Problem("Red not allowed!");
-
-        return await next(invocationContext);
-    });
-
-// or
-
-app.MapGet("/colorSelector/{color}", ColorName)
-   .AddEndpointFilter<RedNotAllowedFilter>();
-```
-
----
-
-🌟 Filters and Groups Together 🤝
-
-```csharp []
-var all = app
-  .MapGroup("/")
-  .WithUniversalResponses()
-  .AddEndpointFilter<ValidationEndpointFilter>();
-
-var aquariums = all.MapGroup("aquariums")
-  .RequireAuthorization("AquariumManagement")
-  .MapGet("/", GetAquariums)
-  //...
-```
-
-Note: I haven't used .NET 7 filters yet, but I could see them
-coming together like this. I don't know if I like it more than
-the opinionated builder. But for more smaller use cases,
-I can dig it. Definitely will use Filters for some things.
 
 ---
 
