@@ -801,6 +801,51 @@ rather than conventions, it's just better organized and less code.
 We'll come back to this.
 
 ---
+
+↔️ Other Cross-Cut Tooling ✂️
+
+- leverage options from your tools
+- (when it makes sense to)
+- example: Swagger filter for endpoint groups (`Tag`)
+
+Note: Our libraries and tooling may have options which make
+these registrations simpler.
+
+----
+
+👪 Swagger Tag Grouping ↔️
+
+```csharp [|5-6|11-17|]
+public class GroupEndpointsByUrlFilter : IOperationFilter
+{
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    {
+        var urlParts = context.ApiDescription.RelativePath?
+            .Split("/") ?? Array.Empty<string>();
+
+        if (urlParts.Length == 0)
+            return;
+
+        var resourceName = urlParts[0];
+        if(!string.IsNullOrWhiteSpace(resourceName))
+            operation.Tags = new List<OpenApiTag>
+            {
+                new() { Name = CultureInfo.CurrentCulture
+                  .TextInfo.ToTitleCase(resourceName.Trim('/')) }
+            };
+    }
+}
+```
+<!-- .element: class="stretch" -->
+
+Note:
+
+- This is a naive implementation without versions
+- pull resource name from url and replace tags with it
+- never worry about tags again!
+
+---
+
 🍕 The Feature Pattern 🍰
 
 - introduce `IFeature` to hold endpoint definitions
@@ -865,50 +910,6 @@ Note: Here is an endpoint in that feature pattern
 1. Interface implementation
 2. Lots of room for our handler
 3. Room to encapsulate request, validator, helpers, etc
-
----
-
-↔️ Cross-Cut Tooling ✂️
-
-- leverage options from your tools
-- (when it makes sense to)
-- example: Swagger filter for endpoint groups (`Tag`)
-
-Note: Our libraries and tooling may have options which make
-these registrations simpler.
-
-----
-
-👪 Swagger Tag Grouping ↔️
-
-```csharp [|5-6|11-17|]
-public class GroupEndpointsByUrlFilter : IOperationFilter
-{
-    public void Apply(OpenApiOperation operation, OperationFilterContext context)
-    {
-        var urlParts = context.ApiDescription.RelativePath?
-            .Split("/") ?? Array.Empty<string>();
-
-        if (urlParts.Length == 0)
-            return;
-
-        var resourceName = urlParts[0];
-        if(!string.IsNullOrWhiteSpace(resourceName))
-            operation.Tags = new List<OpenApiTag>
-            {
-                new() { Name = CultureInfo.CurrentCulture
-                  .TextInfo.ToTitleCase(resourceName.Trim('/')) }
-            };
-    }
-}
-```
-<!-- .element: class="stretch" -->
-
-Note:
-
-- This is a naive implementation without versions
-- pull resource name from url and replace tags with it
-- never worry about tags again!
 
 ---
 
