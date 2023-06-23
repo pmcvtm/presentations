@@ -1112,7 +1112,7 @@ public OpinionatedEndpointBuilder AllowAnonymous()
 Note: Here are our pass-thru methods
 
 1. We can pass in our scopes
-2. Or we can specify that it's aonymous
+2. Or we can specify that it's anonymous
 
 ----
 
