@@ -13,6 +13,6 @@
     "publish": "node tools/publish.js"
   },
   "dependencies": {
-    "reveal-md": "^5.3.4"
+    "reveal-md": "^6.1.3"
   }
 }
