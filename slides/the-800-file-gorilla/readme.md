@@ -6,6 +6,7 @@ revealOptions:
 #  controls: false
   progress: false
   navigationMode: linear
+  slideNumber: false
 css:
 - overrides.css
 - atom-one-dark-reasonable.min.css

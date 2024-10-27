@@ -4,6 +4,7 @@ theme: simple
 revealOptions:
   transition: none
   progress: false
+  slideNumber: false
 css:
 - overrides.css
 - atom-one-dark-reasonable.min.css
