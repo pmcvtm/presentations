@@ -16,6 +16,8 @@ Develop Complex Front-Ends
 
 Without Complex Workflows
 
+Notes: Thanks to Ashish and Daniel for inviting me, and to Laura for setting things up. Happy Halloween
+
 ---
 
 #### Agenda
