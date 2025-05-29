@@ -1,0 +1,23 @@
+﻿:root {
+  --r-heading-font: "Atkinson Hyperlegible Mono", sans-serif;
+  --r-main-font: "Atkinson Hyperlegible Mono", sans-serif ;
+  --r-heading-margin: 0 0 3rem 0;
+  --r-background-color: #eaeff5;
+}
+
+
+/* Pink: #eb9486 Violet: #595A88 Green: #80C658 */
+
+code {
+  border-radius: 0.6em;
+  color:#7e57c2;
+}
+
+.reveal blockquote {
+  width: 90%;
+  box-shadow: none;
+  text-align: left;
+  background-color: white;
+  padding-left: 0.5em;
+  border-radius: 0.6em;
+}
